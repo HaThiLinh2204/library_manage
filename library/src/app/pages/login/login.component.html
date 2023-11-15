@@ -1,0 +1,35 @@
+<div class="app-login-screen">
+    <h1 align="center">Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="width:50%; margin: 25px auto; ">
+        <div class="user-box">
+            
+            <input type="text" id="name" formControlName="name" [(ngModel)]="loginData.user.userName" #name>
+            <label for="name">Name:</label>
+            <div *ngIf="submitted && loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)"
+                class="error">
+                <div *ngIf="loginForm.get('name')?.errors?.['required']">Name is required</div>
+            </div>
+        </div>
+        <div class="user-box">
+           
+            <input type="password" id="password" formControlName="password" [(ngModel)]="loginData.user.password">
+            <label for="password">Password:</label>
+            <div *ngIf="submitted && loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+                class="error">
+                <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+            </div>
+
+        </div>
+        <div class="user-box" >
+            <button type="submit">Submit</button>
+            <div *ngIf="invalidLogin" class="error">
+                <div>Invalid credentials.</div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- <app-inside-login (updatedData)="insideUpdate()"></app-inside-login> -->
+
+<!-- {{loginData | json}} -->
