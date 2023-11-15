@@ -8,13 +8,17 @@ import { RouterModule } from '@angular/router';
 import { BookListComponent } from './pages/book-list/book-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InsideLoginComponent } from './pages/inside-login/inside-login.component';
+import { CategoryListComponent } from './pages/category-list/category-list.component';
+import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     BookListComponent,
-    InsideLoginComponent
+    InsideLoginComponent,
+    CategoryListComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,

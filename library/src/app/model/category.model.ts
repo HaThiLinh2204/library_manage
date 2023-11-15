@@ -1,19 +1,13 @@
-interface ICategory { 
+export interface ICategory {
+  id: number;
 
-    id: string; 
-  
-    name: string; 
-  
-  } 
-  
-  interface ICategoryList{ 
-  
-    categories: ICategory[]; 
-  
-    selectedCategory: ICategory | null; 
-  
-   // pagination: Pagination; 
-  
-    
-  
-  } 
+  name: string;
+}
+
+export interface ICategoryList {
+  categories: ICategory[];
+
+  selectedCategory: ICategory | null;
+
+  // pagination: Pagination;
+}
