@@ -17,6 +17,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AuthService } from 'src/app/auth.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   invalidLogin: boolean = false;
   matcher = new MyErrorStateMatcher();
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -98,7 +99,7 @@ export class LoginComponent implements OnInit {
         this.loginData.user.userName == 'admin' &&
         this.loginData.user.password == 'admin'
       ) {
-       
+        this.authService.isLoggedIn = true;
         this.router.navigate(['book-list']);
       } else {
         this.invalidLogin = true;

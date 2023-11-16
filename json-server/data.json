@@ -1,0 +1,10 @@
+{
+    "books": [
+      { "id": 1, "name": "json-server", "categoryId": "typicode" ,"quantity":10, "remainingStock":34,"isDeleted":0},
+      { "id": 3, "name": "json-server", "categoryId": "typicode" ,"quantity":10, "remainingStock":34,"isDeleted":0}
+    ],
+    "categories": [
+      { "id": 1, "name": "some comment", "isDeleted": 0 }
+    ],
+    "rentals": { "name": "typicode" }
+  }

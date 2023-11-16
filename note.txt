@@ -1,0 +1,6 @@
+tạo json: 
+B1. npm init 
+B2: npm i json-server
+B3: tạo file data.json và bỏ dữ liệu vào
+B4: thêm  "start": "json-server --watch data.json" vào package.json
+B5: chạy npm start là ra
