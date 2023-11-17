@@ -1,7 +1,7 @@
 export interface ICategory {
   id: number;
 
-  name: string;
+  categoryName: string;
 }
 
 export interface ICategoryList {

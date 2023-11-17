@@ -1,29 +1,53 @@
-<!-- <h2>Book List</h2>
-<ul>
-  <li *ngFor="let book of bookDatas">
-   
-  </li>
-</ul> -->
+<form class="example-form" [formGroup]="searchForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>Tên sách</mat-label>
+    <input type="name" matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Danh mục</mat-label>
+    <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" name="categoryId">
+      <mat-option *ngFor="let book of bookDatas" [value]="book.categoryId">
+        {{book.categoryId}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="onSubmit()" type="submit">Tìm kiếm</button>
+</form>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <th mat-header-cell *matHeaderCellDef> STT </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Tên </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef>Danh mục </th>
+    <td mat-cell *matCellDef="let element" > {{element.categoryName}} </td>
+  </ng-container>
 
-  <!-- Weight Column -->
+
   <ng-container matColumnDef="quantity">
     <th mat-header-cell *matHeaderCellDef> Số lượng </th>
     <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
   </ng-container>
 
-  <!-- Symbol Column -->
+ 
   <ng-container matColumnDef="remainingStock">
     <th mat-header-cell *matHeaderCellDef> Còn lại </th>
     <td mat-cell *matCellDef="let element"> {{element.remainingStock}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Thao tác </th>
+    <td mat-cell *matCellDef="let element">  
+      <button mat-raised-button  type="submit">Chỉnh sửa</button>
+      <button mat-raised-button  type="submit">Xóa</button>
+      <button mat-raised-button  type="submit">Mượn</button>
+     </td>
+  
+
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
