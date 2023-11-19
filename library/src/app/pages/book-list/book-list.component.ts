@@ -3,7 +3,7 @@ import { IBook } from 'src/app/model/book.model';
 import { MatTableModule } from '@angular/material/table';
 import { BookService } from 'src/app/service/book.service';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import {
   FormControl,
   FormGroup,
@@ -13,9 +13,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common'
-import { CategoryComponent } from '../category/category.component';
-import { ajax } from 'rxjs/ajax';
+import { CommonModule } from '@angular/common';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
@@ -33,53 +33,12 @@ import { ICategory } from 'src/app/model/category.model';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatPaginatorModule
+
   ],
+  providers: [{ provide: MatPaginatorIntl }]
 })
-export class BookListComponent implements OnInit {
-  // bookDatas: IBook[] = [
-  //   {
-  //     id: 1,
-  //     name: 'Đắc nhân tâm',
-  //     categoryId: 1,
-  //     quantity: 10,
-  //     remainingStock: 10,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Đắc nhân tâm 1',
-  //     categoryId: 2,
-  //     quantity: 10,
-  //     remainingStock: 10,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Đắc nhân tâm 2',
-  //     categoryId: 1,
-  //     quantity: 12,
-  //     remainingStock: 9,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Đắc nhân tâm 3',
-  //     categoryId: 3,
-  //     quantity: 10,
-  //     remainingStock: 10,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Đắc nhân tâm 4',
-  //     categoryId: 1,
-  //     quantity: 10,
-  //     remainingStock: 10,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Đắc nhân tâm 5',
-  //     categoryId: 1,
-  //     quantity: 10,
-  //     remainingStock: 10,
-  //   },
-  // ];
+export class BookListComponent implements OnInit, MatPaginatorIntl {
   dataSource = new MatTableDataSource<IBook>([]);
   bookDatas: IBook[] = [];
   categoryDatas: ICategory[] = [];
@@ -90,63 +49,41 @@ export class BookListComponent implements OnInit {
   submitted: boolean = false;
   keyName: string = '';
   selectedValue: string = '';
-  dataBookCategory: [IBook[], ICategory[]] = [[],[]];
-  mergedObjects : any[] =[];
+  dataBookCategory: [IBook[], ICategory[]] = [[], []];
+  mergedObjects: any[] = [];
+  changes = new Subject<void>();
+
+  // For internationalization, the `$localize` function from
+  // the `@angular/localize` package can be used.
+  firstPageLabel = $localize`First page`;
+  itemsPerPageLabel = $localize`Items per page:`;
+  lastPageLabel = $localize`Last page`;
+
+  // You can set labels to an arbitrary string too, or dynamically compute
+  // it through other third-party internationalization libraries.
+  nextPageLabel = 'Next page';
+  previousPageLabel = 'Previous page';
 
 
   constructor(private bookService: BookService, private categoryService: CategoryService) {
-    
+
   }
   ngOnInit(): void {
     forkJoin(
-      // as of RxJS 6.5+ we can use a dictionary of sources
       {
         bookDatas: this.bookService.getBooks(),
         categoryDatas: this.categoryService.getCategories(),
-       
+
       }
     )
-      // { google: object, microsoft: object, users: array }
-      .subscribe( (response) => {
+      .subscribe((response) => {
         console.log("response received");
+        this.categoryDatas = response.categoryDatas;
         this.dataBookCategory = [response.bookDatas, response.categoryDatas];
-       // this.dataSource.data = this.data;
-       console.log(this.dataBookCategory)
-       // console.log(this.dataSource.data);
-        this.mergedObjects = this.mergeArraysByCategory(this.dataBookCategory[0], this.dataBookCategory[1], 'categoryId','id');
-       // console.log(mergedObjects);
-        this.dataSource.data = this.mergedObjects;
-        console.log(this.dataSource.data);
-        this.searchName(this.keyName,this.mergedObjects);
-        console.log(this.newBookDatas);
+        this.mergedObjects = this.mergeArraysByCategory(this.dataBookCategory[0], this.dataBookCategory[1], 'categoryId', 'idCategory');
+        this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
         this.dataSource.data = this.newBookDatas;
       })
-    // this.bookService.getBooks().subscribe(
-    //   (response) => {
-    //     console.log("response received");
-    //     this.bookDatas = response;
-    //     // console.log(this.bookDatas);
-    //     this.dataSource.data = this.bookDatas;
-
-    //     this.searchName(this.keyName, this.bookDatas);
-
-    //     this.dataSource.data = this.newBookDatas;
-    //   }
-      // ,
-      // (error) => {
-      //   //error() callback
-      //   console.error('Request failed with error');
-      //   this.errorMessage = error;
-      //   this.loading = false;
-      // },
-      // () => {
-      //   //complete() callback
-      //   console.error('Request completed'); //This is actually not needed
-      //   this.loading = false;
-      // }
-    // );
-    
-    
     this.searchForm = new FormGroup({
       name: new FormControl(''),
     });
@@ -155,8 +92,9 @@ export class BookListComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'name',
-    'quantity',
     'categoryName',
+    'quantity',
+
     'remainingStock',
     'action'
   ];
@@ -165,34 +103,37 @@ export class BookListComponent implements OnInit {
 
     console.log('Input value', this.keyName);
     this.newBookDatas = []; // Đặt lại mảng mới khi submit
-    this.searchName(this.keyName, this.mergedObjects);
+    this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
     this.dataSource.data = this.newBookDatas;
+    console.log('newBookDatas', this.newBookDatas)
+    console.log('dataSource', this.dataSource.data)
+    console.log('selectedValue', this.selectedValue)
   }
   removeDiacritics(keyword: string) {
     return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
   normalizeString(keyword: string) {
-    return this.removeDiacritics((keyword||'').toLowerCase());
+    return this.removeDiacritics((keyword || '').toLowerCase());
   }
-  searchName(name: string, bookLists: any[]) {
-    bookLists.forEach((book) => {
-      if (
-        this.normalizeString(book.name).includes(this.normalizeString(name))
-      ) {
-        this.newBookDatas.push(book);
-      }
-    });
+
+  searchName(name: string, select: string, bookLists: any[]) {
+    this.newBookDatas = bookLists.filter((book) => {
+      // console.log(book.name)
+      if (this.normalizeString(book.name).includes(this.normalizeString(name)) && book.categoryName.includes(select))
+        return book;
+    })
+
   }
   mergeArraysByCategory(array1: any[], array2: any[], field1: string, field2: string) {
     const mapObj2: { [key: string]: any } = {};
-  
+
     array2.forEach((obj) => {
       mapObj2[obj[field2]] = obj;
     });
-  
+
     const mergedArray: any[] = [];
-  
+
     array1.forEach((obj1) => {
       const obj2 = mapObj2[obj1[field1]];
       if (obj2) {
@@ -200,8 +141,14 @@ export class BookListComponent implements OnInit {
         mergedArray.push(mergedObject);
       }
     });
-  
+
     return mergedArray;
   }
-  //dataSource = this.bookDatas;
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return $localize`Page 1 of 1`;
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return $localize`Page ${page + 1} of ${amountPages}`;
+  }
 }

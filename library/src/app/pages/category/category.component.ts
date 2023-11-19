@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit{
   }
 
   displayedColumns: string[] = [
-    'id',
+    'idCategory',
     'categoryName'
   ];
 }

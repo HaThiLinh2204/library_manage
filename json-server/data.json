@@ -1,6 +1,6 @@
 {
     "books": [
-      { "id": 1, "Name": "Chưa Kịp Lớn Đã Phải Trưởng Thành", "categoryId": 1 ,"quantity":34, "remainingStock":34,"isDeleted":0},
+      { "id": 1, "name": "Chưa Kịp Đã Phải Trưởng Thành", "categoryId": 1 ,"quantity":34, "remainingStock":34,"isDeleted":0},
       { "id": 2, "name": "Nghệ thuật tối giản: Có ít đi, sống nhiều hơn", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0},
       { "id": 3, "name": "Sống như bông pháo hoa", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0},
       { "id": 4, "name": "Ba người thầy vĩ đại", "categoryId": 2 ,"quantity":10, "remainingStock":10,"isDeleted":0},
@@ -10,13 +10,13 @@
       { "id": 8, "name": "Trưởng thành sau ngàn lần tranh đấu", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0},
       { "id": 9, "name": "Hãy khiến tương lai biết ơn vì hiện tại bạn đã cố gắng hết mình", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0},
       { "id": 10, "name": "Ổn định hay tự do - Tác giả Trương Học Vĩ", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0},
-      { "id": 22, "name": "Gửi bạn người đã kiệt sức vì những chịu đựng âm thầm", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0}
+      { "id": 11, "name": "Gửi bạn người đã kiệt sức vì những chịu đựng âm thầm", "categoryId": 2 ,"quantity":34, "remainingStock":34,"isDeleted":0}
 
     ],
     "categories": [
-      { "id": 1, "categoryName": "Văn học", "isDeleted": 0 },
-      { "id": 2, "categoryName": "Kỹ năng", "isDeleted": 0 },
-      { "id": 3, "categoryName": "Văn học", "isDeleted": 0 }
+      { "idCategory": 1, "categoryName": "Văn học", "isDeleted": 0 },
+      { "idCategory": 2, "categoryName": "Kỹ năng", "isDeleted": 0 },
+      { "idCategory": 3, "categoryName": "Truyện tranh", "isDeleted": 0 }
     ],
     "rentals": { "name": "typicode" }
   }
