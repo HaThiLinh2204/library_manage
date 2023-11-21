@@ -14,9 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { myGuardGuard } from './my-guard.guard';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CategoryComponent } from './pages/category/category.component';
+import { CategoryComponent, DialogOverviewExampleDialog } from './pages/category/category.component';
 import { UpdatedBookComponent } from './pages/updated-book/updated-book.component';
 import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.component';
+import { RentalListComponent } from './pages/rental-list/rental-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [AppComponent, NavigationBarComponent],
   imports: [
@@ -24,6 +26,7 @@ import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.co
     MatSlideToggleModule,
     MatInputModule,
     HttpClientModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
@@ -39,10 +42,20 @@ import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.co
         canActivate: [myGuardGuard],
       },
       {
-        path: 'updated-book',
+        path: 'updated-book/:id',
         component: UpdatedBookComponent,
         canActivate: [myGuardGuard],
       },
+      {
+        path: 'new-book',
+        component: UpdatedBookComponent,
+        canActivate: [myGuardGuard],
+      },
+      {
+        path: 'rental-list',
+        component: RentalListComponent,
+        canActivate: [myGuardGuard],
+      }
     ]),
   ],
   providers: [],

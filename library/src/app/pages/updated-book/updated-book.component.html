@@ -1,1 +1,27 @@
-<p>updated-book works!</p>
+<h1>Trang chỉnh sửa</h1>
+<form class="example-form" [formGroup]="bookForm">
+    <div>
+        <mat-form-field class="example-full-width">
+            <mat-label>Tên sách</mat-label>
+            <input type="name" matInput formControlName="name">
+          </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="example-full-width">
+            <mat-label>Số lượng</mat-label>
+            <input type="number" matInput formControlName="quantity">
+          </mat-form-field>
+    </div>
+      <div>
+        <mat-form-field>
+            <mat-label>Danh mục</mat-label>
+            <mat-select formControlName="categoryId" >
+              <mat-option *ngFor="let category of categoryDatas" [value]="category.id">
+                {{category.categoryName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    <button mat-raised-button  type="submit" (click)="onCancel()">Thoát</button>
+    <button mat-raised-button  type="submit" (click)="onUpdate()">Lưu</button>
+  </form>

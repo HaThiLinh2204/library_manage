@@ -1,16 +1,15 @@
 {
-  "dependencies": {
-    "json-server": "^0.17.4"
-  },
-  "name": "json",
+  "name": "json-data",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "json-server --watch data.json"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
 }

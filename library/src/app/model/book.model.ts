@@ -1,9 +1,9 @@
 export interface IBook {
-  id: number;
+  id: string;
 
   name: string;
 
-  categoryId: number;
+  categoryId: string;
 
   quantity: number;
 

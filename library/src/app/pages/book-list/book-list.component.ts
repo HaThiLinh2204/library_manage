@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Injectable,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { IBook } from 'src/app/model/book.model';
 import { MatTableModule } from '@angular/material/table';
 import { BookService } from 'src/app/service/book.service';
@@ -14,11 +20,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -33,12 +45,13 @@ import { ICategory } from 'src/app/model/category.model';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatPaginatorModule
-
+    MatPaginatorModule,
   ],
-  providers: [{ provide: MatPaginatorIntl }]
 })
-export class BookListComponent implements OnInit, MatPaginatorIntl {
+export class BookListComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
   dataSource = new MatTableDataSource<IBook>([]);
   bookDatas: IBook[] = [];
   categoryDatas: ICategory[] = [];
@@ -52,38 +65,18 @@ export class BookListComponent implements OnInit, MatPaginatorIntl {
   dataBookCategory: [IBook[], ICategory[]] = [[], []];
   mergedObjects: any[] = [];
   changes = new Subject<void>();
+  getBookList: any;
 
-  // For internationalization, the `$localize` function from
-  // the `@angular/localize` package can be used.
-  firstPageLabel = $localize`First page`;
-  itemsPerPageLabel = $localize`Items per page:`;
-  lastPageLabel = $localize`Last page`;
-
-  // You can set labels to an arbitrary string too, or dynamically compute
-  // it through other third-party internationalization libraries.
-  nextPageLabel = 'Next page';
-  previousPageLabel = 'Previous page';
-
-
-  constructor(private bookService: BookService, private categoryService: CategoryService) {
-
+  constructor(
+    private bookService: BookService,
+    private categoryService: CategoryService,
+    private router: Router
+  ) {}
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
   ngOnInit(): void {
-    forkJoin(
-      {
-        bookDatas: this.bookService.getBooks(),
-        categoryDatas: this.categoryService.getCategories(),
-
-      }
-    )
-      .subscribe((response) => {
-        console.log("response received");
-        this.categoryDatas = response.categoryDatas;
-        this.dataBookCategory = [response.bookDatas, response.categoryDatas];
-        this.mergedObjects = this.mergeArraysByCategory(this.dataBookCategory[0], this.dataBookCategory[1], 'categoryId', 'idCategory');
-        this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
-        this.dataSource.data = this.newBookDatas;
-      })
+    this.fetchBookList();
     this.searchForm = new FormGroup({
       name: new FormControl(''),
     });
@@ -96,8 +89,9 @@ export class BookListComponent implements OnInit, MatPaginatorIntl {
     'quantity',
 
     'remainingStock',
-    'action'
+    'action',
   ];
+
   onSubmit() {
     this.keyName = this.searchForm.get('name')?.value;
 
@@ -105,9 +99,37 @@ export class BookListComponent implements OnInit, MatPaginatorIntl {
     this.newBookDatas = []; // Đặt lại mảng mới khi submit
     this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
     this.dataSource.data = this.newBookDatas;
-    console.log('newBookDatas', this.newBookDatas)
-    console.log('dataSource', this.dataSource.data)
-    console.log('selectedValue', this.selectedValue)
+    //   console.log('newBookDatas', this.newBookDatas)
+    //   console.log('dataSource', this.dataSource.data)
+    //   console.log('selectedValue', this.selectedValue)
+  }
+  onDelete(id: string) {
+    console.log('id', id);
+    this.bookService.deleteBook(id).subscribe((res) => {
+      console.log('done');
+      this.fetchBookList();
+    });
+  }
+  fetchBookList(): void {
+    forkJoin({
+      bookDatas: this.bookService.getBooks(),
+      categoryDatas: this.categoryService.getCategories(),
+    }).subscribe((response) => {
+      console.log('response received');
+      this.categoryDatas = response.categoryDatas;
+      // console.log(response.categoryDatas)
+      this.dataBookCategory = [response.bookDatas, response.categoryDatas];
+      // console.log(this.dataBookCategory)
+      this.mergedObjects = this.mergeArraysByCategory(
+        this.dataBookCategory[0],
+        this.dataBookCategory[1],
+        'categoryId',
+        'id'
+      );
+      console.log(this.mergedObjects);
+      this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
+      this.dataSource.data = this.newBookDatas;
+    });
   }
   removeDiacritics(keyword: string) {
     return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -120,12 +142,19 @@ export class BookListComponent implements OnInit, MatPaginatorIntl {
   searchName(name: string, select: string, bookLists: any[]) {
     this.newBookDatas = bookLists.filter((book) => {
       // console.log(book.name)
-      if (this.normalizeString(book.name).includes(this.normalizeString(name)) && book.categoryName.includes(select))
+      if (
+        this.normalizeString(book.name).includes(this.normalizeString(name)) &&
+        book.categoryName.includes(select)
+      )
         return book;
-    })
-
+    });
   }
-  mergeArraysByCategory(array1: any[], array2: any[], field1: string, field2: string) {
+  mergeArraysByCategory(
+    array1: any[],
+    array2: any[],
+    field1: string,
+    field2: string
+  ) {
     const mapObj2: { [key: string]: any } = {};
 
     array2.forEach((obj) => {
@@ -137,18 +166,22 @@ export class BookListComponent implements OnInit, MatPaginatorIntl {
     array1.forEach((obj1) => {
       const obj2 = mapObj2[obj1[field1]];
       if (obj2) {
-        const mergedObject = { ...obj1, ...obj2 };
+        const mergedObject = {
+          id: obj1.id,
+          name: obj1.name,
+          categoryId: obj1.categoryId,
+          quantity: obj1.quantity,
+          remainingStock: obj1.remainingStock,
+          categoryName: obj2.categoryName,
+        };
+        //console.log(mergedObject)
         mergedArray.push(mergedObject);
       }
     });
 
     return mergedArray;
   }
-  getRangeLabel(page: number, pageSize: number, length: number): string {
-    if (length === 0) {
-      return $localize`Page 1 of 1`;
-    }
-    const amountPages = Math.ceil(length / pageSize);
-    return $localize`Page ${page + 1} of ${amountPages}`;
+  onEditBook(id: string) {
+    this.router.navigate([`updated-book/${id}`]);
   }
 }
