@@ -15,4 +15,7 @@ export class RentalService {
         return this.http.get<IRental[]>(this.rentalUrl);
 
     }
+    createRental(rental:IRental):Observable<IRental>{ 
+        return this.http.post<IRental>(this.rentalUrl,rental);
+      }
 }

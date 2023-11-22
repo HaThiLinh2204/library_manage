@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  Inject,
   Injectable,
   OnInit,
   ViewChild,
@@ -10,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BookService } from 'src/app/service/book.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   FormControl,
   FormGroup,
@@ -30,6 +32,22 @@ import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
 import { Router } from '@angular/router';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { IRental } from 'src/app/model/rental.model';
+import { MatNativeDateModule } from '@angular/material/core';
+import { v4 as uuidv4 } from 'uuid';
+import { RentalService } from 'src/app/service/rental.service';
+
+export interface IData extends IRental {
+  nameBook: string;
+  categoryName: string;
+  bookId: string;
+}
 
 @Component({
   selector: 'app-book-list',
@@ -46,7 +64,10 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
+  providers: [MatDatepickerModule, MatNativeDateModule],
 })
 export class BookListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
@@ -66,11 +87,14 @@ export class BookListComponent implements OnInit, AfterViewInit {
   mergedObjects: any[] = [];
   changes = new Subject<void>();
   getBookList: any;
+ // bookBorrow!: IBook;
 
   constructor(
     private bookService: BookService,
     private categoryService: CategoryService,
-    private router: Router
+    private rentalService: RentalService,
+    private router: Router,
+    public dialog: MatDialog
   ) {}
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -87,7 +111,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
     'name',
     'categoryName',
     'quantity',
-
     'remainingStock',
     'action',
   ];
@@ -99,9 +122,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
     this.newBookDatas = []; // Đặt lại mảng mới khi submit
     this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
     this.dataSource.data = this.newBookDatas;
-    //   console.log('newBookDatas', this.newBookDatas)
-    //   console.log('dataSource', this.dataSource.data)
-    //   console.log('selectedValue', this.selectedValue)
   }
   onDelete(id: string) {
     console.log('id', id);
@@ -117,26 +137,17 @@ export class BookListComponent implements OnInit, AfterViewInit {
     }).subscribe((response) => {
       console.log('response received');
       this.categoryDatas = response.categoryDatas;
-      // console.log(response.categoryDatas)
       this.dataBookCategory = [response.bookDatas, response.categoryDatas];
-      // console.log(this.dataBookCategory)
       this.mergedObjects = this.mergeArraysByCategory(
         this.dataBookCategory[0],
         this.dataBookCategory[1],
         'categoryId',
         'id'
       );
-      console.log(this.mergedObjects);
+      // console.log(this.mergedObjects);
       this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
       this.dataSource.data = this.newBookDatas;
     });
-  }
-  removeDiacritics(keyword: string) {
-    return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  }
-
-  normalizeString(keyword: string) {
-    return this.removeDiacritics((keyword || '').toLowerCase());
   }
 
   searchName(name: string, select: string, bookLists: any[]) {
@@ -148,6 +159,13 @@ export class BookListComponent implements OnInit, AfterViewInit {
       )
         return book;
     });
+  }
+  removeDiacritics(keyword: string) {
+    return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  normalizeString(keyword: string) {
+    return this.removeDiacritics((keyword || '').toLowerCase());
   }
   mergeArraysByCategory(
     array1: any[],
@@ -165,16 +183,14 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
     array1.forEach((obj1) => {
       const obj2 = mapObj2[obj1[field1]];
+
       if (obj2) {
         const mergedObject = {
           id: obj1.id,
-          name: obj1.name,
-          categoryId: obj1.categoryId,
-          quantity: obj1.quantity,
-          remainingStock: obj1.remainingStock,
+          ...obj1,
           categoryName: obj2.categoryName,
         };
-        //console.log(mergedObject)
+
         mergedArray.push(mergedObject);
       }
     });
@@ -183,5 +199,66 @@ export class BookListComponent implements OnInit, AfterViewInit {
   }
   onEditBook(id: string) {
     this.router.navigate([`updated-book/${id}`]);
+  }
+  onBorrow(id: string) {
+    
+    const mapObj2: { [key: string]: any } = {};
+    this.newBookDatas.forEach((obj) => {
+      mapObj2[obj['id']] = obj;
+    });
+    console.log(mapObj2[id]);
+    const {categoryName, ...bookBorrow} = mapObj2[id];
+    console.log(bookBorrow)
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      data: {
+        id: uuidv4(),
+        bookId: id,
+        userName: '',
+        nameBook: mapObj2[id].name,
+        categoryName: mapObj2[id].categoryName,
+        dueDate: '',
+        status: 'Đang mượn',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      const { nameBook, categoryName, ...result1 } = result;
+      this.rentalService.createRental(result1)
+        .subscribe((res) =>{
+          alert('Mượn thành công');
+          bookBorrow.remainingStock = bookBorrow.remainingStock - 1;
+          this.bookService.updateBook(id,bookBorrow)
+          .subscribe(() =>
+            {
+              this.fetchBookList();
+            }
+          )
+        } );
+      console.log(result1);
+    });
+  }
+}
+@Component({
+  selector: 'dialog-book',
+  templateUrl: 'dialogBook.component.html',
+  standalone: true,
+  imports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [MatDatepickerModule, MatNativeDateModule],
+})
+export class DialogOverviewExampleDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: IData
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

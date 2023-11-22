@@ -45,7 +45,7 @@
     <td mat-cell *matCellDef="let element">  
       <button mat-raised-button  type="submit" (click)="onEditBook(element.id)">Chỉnh sửa</button>
       <button mat-raised-button *ngIf ="element.quantity === element.remainingStock" (click)="onDelete(element.id)" type="submit">Xóa</button>
-      <button mat-raised-button *ngIf ="element.remainingStock > 0" type="submit">Mượn</button>
+      <button mat-raised-button *ngIf ="element.remainingStock > 0" type="submit" (click)="onBorrow(element.id)">Mượn</button>
      </td>
   
 

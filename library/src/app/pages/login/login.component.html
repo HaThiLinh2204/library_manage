@@ -4,7 +4,7 @@
     <form class="example-form" [formGroup] ="loginForm">
         <mat-form-field class="example-full-width">
           <mat-label>Username</mat-label>
-          <input type="name" matInput formControlName="name" placeholder="Ex. pat@example.com">
+          <input type="name" matInput formControlName="name" placeholder="admin">
           <mat-error *ngIf="nameControl.hasError('name') && !nameControl.hasError('required')">
             Please enter a valid name address
           </mat-error>
@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Password</mat-label>
-            <input type="password" matInput formControlName="password" placeholder="Ex. pat@example.com">
+            <input type="password" matInput formControlName="password" placeholder="admin">
             <mat-error *ngIf="nameControl.hasError('password') && !nameControl.hasError('required')">
               Please enter a valid password address
             </mat-error>

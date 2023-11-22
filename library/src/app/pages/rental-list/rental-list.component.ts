@@ -48,6 +48,7 @@ export class RentalListComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit(): void {
+    this.fetchRentalList();
 
   }
 
@@ -71,6 +72,7 @@ export class RentalListComponent implements OnInit, AfterViewInit {
     ).subscribe(
       (response) => {
         console.log('thanh cong');
+        console.log(response)
 
         
 

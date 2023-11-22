@@ -14,11 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { myGuardGuard } from './my-guard.guard';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CategoryComponent, DialogOverviewExampleDialog } from './pages/category/category.component';
+import { CategoryComponent} from './pages/category/category.component';
 import { UpdatedBookComponent } from './pages/updated-book/updated-book.component';
 import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.component';
 import { RentalListComponent } from './pages/rental-list/rental-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [AppComponent, NavigationBarComponent],
   imports: [
@@ -28,6 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    MatDatepickerModule, 
+    MatNativeDateModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },

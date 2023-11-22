@@ -12,7 +12,7 @@
       "name": "Sống như bông pháo hoa",
       "categoryId": "2",
       "quantity": 34,
-      "remainingStock": 32
+      "remainingStock": 31
     },
     {
       "id": "4",
@@ -64,11 +64,11 @@
       "remainingStock": 34
     },
     {
-      "id": "11",
       "name": "Gửi bạn người đã kiệt sức vì những chịu đựng âm thầm",
-      "categoryId": "2",
+      "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
       "quantity": 34,
-      "remainingStock": 34
+      "remainingStock": 34,
+      "id": "11"
     },
     {
       "name": "chưa kip lớn",
@@ -144,10 +144,38 @@
     },
     {
       "id": "5",
-      "bookId": 3,
+      "bookId": "3",
       "userName": "Emma Garcia",
       "dueDate": "2023-12-15",
       "returnDate": null,
+      "status": "Đang mượn"
+    },
+    {
+      "id": "cf0dd3fa-77bf-46e8-b19e-1315c5adbaab",
+      "bookId": "3",
+      "userName": "Ha Linh",
+      "dueDate": "2023-11-23T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "8b628379-1fa9-4ed5-924f-21bc02524424",
+      "bookId": "3",
+      "userName": "fds",
+      "dueDate": "2023-11-21T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "a5659abc-8ea9-400d-8cd7-634555652f4a",
+      "bookId": "3",
+      "userName": "gffg",
+      "dueDate": "2023-11-23T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "03c2c177-ea1d-44a7-91b6-d870592c39de",
+      "bookId": "3",
+      "userName": "Linh linh",
+      "dueDate": "2023-11-23T17:00:00.000Z",
       "status": "Đang mượn"
     }
   ]
