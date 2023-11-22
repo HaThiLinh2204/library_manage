@@ -32,13 +32,13 @@ export class CategoryComponent implements OnInit {
   dataSource = new MatTableDataSource<ICategory>([]);
   categoryDatas: ICategory[] = [];
   category!: ICategory;
-  categoryName: string ='';
+  categoryName: string = '';
 
   constructor(
     private categoryService: CategoryService,
     private bookService: BookService,
     public dialog: MatDialog
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.fetchCategoryList();
   }
@@ -57,48 +57,34 @@ export class CategoryComponent implements OnInit {
     });
   }
   onCreate(): void {
-
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {categoryName: '', id: ''},
+      data: { categoryName: '', id: '' },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      this.category = {id: uuidv4(), categoryName:result}
-      this.categoryService.createCategory(this.category)
-      .subscribe(
-        res => {
-          console.log('them danh muc',this.category)
-          this.fetchCategoryList();
-        }
-      )
-      // console.log('The dialog was closed');
-      // this.categoryName = result;
+      this.category = { id: uuidv4(), categoryName: result };
+      this.categoryService.createCategory(this.category).subscribe((res) => {
+        console.log('them danh muc', this.category);
+        this.fetchCategoryList();
+      });
     });
   }
   onEditCategory(id: string) {
     console.log('id', id);
-    this.categoryService.getCategoryById(id)
-    .subscribe( res => {
+    this.categoryService.getCategoryById(id).subscribe((res) => {
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-        data: {categoryName: res.categoryName, id: res.id},
+        data: { categoryName: res.categoryName, id: res.id },
       });
-  
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         console.log(result);
-        this.category = {id: id, categoryName:result}
-        this.categoryService.updateCategory(id, this.category)
-        .subscribe(
-          () => {
-            console.log('cập nhật danh muc',this.category)
-            this.fetchCategoryList();
-          }
-        )
-        // console.log('The dialog was closed');
-        // this.categoryName = result;
+        this.category = { id: id, categoryName: result };
+        this.categoryService.updateCategory(id, this.category).subscribe(() => {
+          console.log('cập nhật danh muc', this.category);
+          this.fetchCategoryList();
+        });
       });
-    })
-    
+    });
   }
   fetchCategoryList(): void {
     this.categoryService.getCategories().subscribe((response) => {
@@ -107,7 +93,7 @@ export class CategoryComponent implements OnInit {
       this.dataSource.data = this.categoryDatas;
     });
   }
-  
+
   displayedColumns: string[] = ['id', 'categoryName', 'action'];
 }
 
@@ -127,7 +113,7 @@ export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ICategory
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

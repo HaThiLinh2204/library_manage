@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   Inject,
-  Injectable,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -22,12 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import {
-  MatPaginator,
-  MatPaginatorIntl,
-  MatPaginatorModule,
-} from '@angular/material/paginator';
-import { Subject } from 'rxjs';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
@@ -38,16 +32,11 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { IRental } from 'src/app/model/rental.model';
+import { IRental, IRentalList } from 'src/app/model/rental.model';
 import { MatNativeDateModule } from '@angular/material/core';
 import { v4 as uuidv4 } from 'uuid';
 import { RentalService } from 'src/app/service/rental.service';
 
-export interface IData extends IRental {
-  nameBook: string;
-  categoryName: string;
-  bookId: string;
-}
 
 @Component({
   selector: 'app-book-list',
@@ -72,22 +61,15 @@ export interface IData extends IRental {
 export class BookListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-
   dataSource = new MatTableDataSource<IBook>([]);
   bookDatas: IBook[] = [];
   categoryDatas: ICategory[] = [];
   newBookDatas: IBook[] = [];
-  loading: boolean = false;
-  errorMessage: string = '';
   searchForm!: FormGroup;
-  submitted: boolean = false;
   keyName: string = '';
   selectedValue: string = '';
   dataBookCategory: [IBook[], ICategory[]] = [[], []];
   mergedObjects: any[] = [];
-  changes = new Subject<void>();
-  getBookList: any;
- // bookBorrow!: IBook;
 
   constructor(
     private bookService: BookService,
@@ -130,6 +112,40 @@ export class BookListComponent implements OnInit, AfterViewInit {
       this.fetchBookList();
     });
   }
+  onEditBook(id: string) {
+    this.router.navigate([`updated-book/${id}`]);
+  }
+  onBorrow(id: string) {
+    const mapObj2: { [key: string]: any } = {};
+    this.newBookDatas.forEach((obj) => {
+      mapObj2[obj['id']] = obj;
+    });
+    console.log(mapObj2[id]);
+    const { categoryName, ...bookBorrow } = mapObj2[id];
+    console.log(bookBorrow);
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      data: {
+        id: uuidv4(),
+        bookId: id,
+        userName: '',
+        nameBook: mapObj2[id].name,
+        categoryName: mapObj2[id].categoryName,
+        dueDate: '',
+        status: 'Đang mượn',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      const { nameBook, categoryName, ...result1 } = result;
+      this.rentalService.createRental(result1).subscribe((res) => {
+        alert('Mượn thành công');
+        bookBorrow.remainingStock = bookBorrow.remainingStock - 1;
+        this.bookService.updateBook(id, bookBorrow).subscribe(() => {
+          this.fetchBookList();
+        });
+      });
+      console.log(result1);
+    });
+  }
   fetchBookList(): void {
     forkJoin({
       bookDatas: this.bookService.getBooks(),
@@ -144,7 +160,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
         'categoryId',
         'id'
       );
-      // console.log(this.mergedObjects);
       this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
       this.dataSource.data = this.newBookDatas;
     });
@@ -152,7 +167,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
   searchName(name: string, select: string, bookLists: any[]) {
     this.newBookDatas = bookLists.filter((book) => {
-      // console.log(book.name)
       if (
         this.normalizeString(book.name).includes(this.normalizeString(name)) &&
         book.categoryName.includes(select)
@@ -197,45 +211,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
     return mergedArray;
   }
-  onEditBook(id: string) {
-    this.router.navigate([`updated-book/${id}`]);
-  }
-  onBorrow(id: string) {
-    
-    const mapObj2: { [key: string]: any } = {};
-    this.newBookDatas.forEach((obj) => {
-      mapObj2[obj['id']] = obj;
-    });
-    console.log(mapObj2[id]);
-    const {categoryName, ...bookBorrow} = mapObj2[id];
-    console.log(bookBorrow)
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {
-        id: uuidv4(),
-        bookId: id,
-        userName: '',
-        nameBook: mapObj2[id].name,
-        categoryName: mapObj2[id].categoryName,
-        dueDate: '',
-        status: 'Đang mượn',
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      const { nameBook, categoryName, ...result1 } = result;
-      this.rentalService.createRental(result1)
-        .subscribe((res) =>{
-          alert('Mượn thành công');
-          bookBorrow.remainingStock = bookBorrow.remainingStock - 1;
-          this.bookService.updateBook(id,bookBorrow)
-          .subscribe(() =>
-            {
-              this.fetchBookList();
-            }
-          )
-        } );
-      console.log(result1);
-    });
-  }
 }
 @Component({
   selector: 'dialog-book',
@@ -255,7 +230,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
 export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: IData
+    @Inject(MAT_DIALOG_DATA) public data: IRentalList
   ) {}
 
   onNoClick(): void {

@@ -1,41 +1,38 @@
 <div mat-dialog-content>
-  <p>Thêm mới</p>
-  <div>
-    <mat-form-field>
-      <mat-label>Tên sách</mat-label>
-      <input matInput [(ngModel)]="data.nameBook" [readonly]="true" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <mat-label>Danh mục</mat-label>
-      <input matInput [(ngModel)]="data.categoryName" [readonly]="true" />
-    </mat-form-field>
-  </div>
+    <h1>Thông tin mượn sách</h1>
+    <div>
+        <mat-form-field>
+            <mat-label>Tên sách</mat-label>
+            <input matInput [(ngModel)]="data.nameBook" [readonly]="true" />
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Danh mục</mat-label>
+            <input matInput [(ngModel)]="data.categoryName" [readonly]="true" />
+        </mat-form-field>
+    </div>
 
-  <!-- <p>{{ data.nameBook }}</p> -->
-  <div>
-    <mat-form-field>
-      <mat-label>Người mượn</mat-label>
-      <input matInput [(ngModel)]="data.userName" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <mat-label>Ngày hẹn trả</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="data.dueDate" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
+    <!-- <p>{{ data.nameBook }}</p> -->
+    <div>
+        <mat-form-field>
+            <mat-label>Người mượn</mat-label>
+            <input matInput [(ngModel)]="data.userName" />
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Ngày hẹn trả</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="data.dueDate" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Đóng</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
-    Mượn
-  </button>
+    <button mat-button (click)="onNoClick()">Đóng</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+        Mượn
+    </button>
 </div>

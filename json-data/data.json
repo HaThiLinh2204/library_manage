@@ -19,21 +19,14 @@
       "name": "Ba người thầy vĩ đại",
       "categoryId": "2",
       "quantity": 10,
-      "remainingStock": 10
+      "remainingStock": 9
     },
     {
       "id": "5",
       "name": "Đừng cố làm người tốt trong mắt tất cả mọi người",
       "categoryId": "2",
       "quantity": 24,
-      "remainingStock": 23
-    },
-    {
-      "id": "6",
-      "name": "Nghệ thuật từ chối - Cách nói không mà vẫn có được đồng thuận",
-      "categoryId": "2",
-      "quantity": 24,
-      "remainingStock": 24
+      "remainingStock": 22
     },
     {
       "id": "7",
@@ -97,6 +90,13 @@
       "quantity": 12,
       "remainingStock": 12,
       "id": "461a0b94-18da-4f52-800e-d4f72b8092ea"
+    },
+    {
+      "id": "ae76df44-f925-4ed9-ad77-d9291c406d29",
+      "name": "Miko",
+      "categoryId": "3",
+      "quantity": 10,
+      "remainingStock": 9
     }
   ],
   "categories": [
@@ -175,6 +175,27 @@
       "id": "03c2c177-ea1d-44a7-91b6-d870592c39de",
       "bookId": "3",
       "userName": "Linh linh",
+      "dueDate": "2023-11-23T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "c28dc2b2-18dd-4a9e-89a3-094c3aba25ff",
+      "bookId": "4",
+      "userName": "aaabbb",
+      "dueDate": "2023-11-23T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "051b7aea-e249-418f-8151-319150312196",
+      "bookId": "ae76df44-f925-4ed9-ad77-d9291c406d29",
+      "userName": "cute",
+      "dueDate": "2023-11-24T17:00:00.000Z",
+      "status": "Đang mượn"
+    },
+    {
+      "id": "19bb77fc-8264-4726-855e-13072a4d626e",
+      "bookId": "5",
+      "userName": "lluhduih",
       "dueDate": "2023-11-23T17:00:00.000Z",
       "status": "Đang mượn"
     }

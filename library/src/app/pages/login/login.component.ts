@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
-  FormBuilder,
   Validators,
   FormControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILogin, IUser } from 'src/app/model/user.model';
+import { ILogin } from 'src/app/model/user.model';
 import { MatInputModule } from '@angular/material/input';
 import {
   FormsModule,
@@ -58,29 +57,14 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   invalidLogin: boolean = false;
   matcher = new MyErrorStateMatcher();
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      name: new FormControl('',[Validators.required]),
-      password: new FormControl('',[Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
-
-  // updateValue(event: any, type: string) {
-  //   // const value = event.target.value;
-  //   // if (type === 'userName') {
-  //   //   this.loginData.user.userName = value;
-  //   // } else if (type === 'password') {
-  //   //   this.loginData.user.password = value;
-  //   // }
-  // }
-  // insideUpdate() {
-  //   const formData = this.loginForm.value;
-  //   this.loginData.user.userName = this.loginForm.get('name')?.value;
-  //   this.loginData.user.password = this.loginForm.get('password')?.value;
-  // }
-
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
@@ -92,8 +76,6 @@ export class LoginComponent implements OnInit {
 
       this.loginData.user.userName = this.loginForm.get('name')?.value;
       this.loginData.user.password = this.loginForm.get('password')?.value;
-      // this.loginData.status = true;
-      // this.loginData.message = 'success';
       console.log('Form submitted:', this.loginData);
       if (
         this.loginData.user.userName == 'admin' &&

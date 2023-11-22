@@ -55,7 +55,7 @@ export class UpdatedBookComponent implements OnInit {
     private bookService: BookService,
     private categoryService: CategoryService,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((res) => {
       this.categoryDatas = res;
@@ -121,8 +121,6 @@ export class UpdatedBookComponent implements OnInit {
         alert('Cập nhật thành công');
         this.router.navigate(['/new-book']);
       }
-      // console.log(this.bookForm.value.categoryId);
-      // Gọi hàm updateBook từ BookService để cập nhật thông tin sách
     }
   }
   onCancel() {
