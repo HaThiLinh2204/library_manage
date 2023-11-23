@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +26,7 @@ import { RentalService } from 'src/app/service/rental.service';
   styleUrls: ['./rental-list.component.css'],
   standalone: true,
   imports: [
+    CommonModule,
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
@@ -37,26 +44,35 @@ export class RentalListComponent implements OnInit, AfterViewInit {
   categoryDatas: ICategory[] = [];
   rentalDatas: IRental[] = [];
   bookList: any[] = [];
-  rentalList:IRentalList[] = [];
+  rentalList: IRentalList[] = [];
   dataBookCategoryRental: [IBook[], ICategory[], IRental[]] = [[], [], []];
-
+  searchForm!: FormGroup;
   dataSource = new MatTableDataSource<IRentalList>([]);
+  selectedValue: string = '';
+  newData: any[] = [];
+  keyName: string = '';
+  currentDate: Date = new Date();
+  newRental!: IRental;
+  newBook!: IBook;
 
   constructor(
     private rentalService: RentalService,
     private bookService: BookService,
     private categoryService: CategoryService
-  ) { }
+  ) {}
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-   }
+  }
   ngOnInit(): void {
     this.fetchRentalList();
+    this.searchForm = new FormGroup({
+      nameOrUserName: new FormControl(''),
+    });
   }
 
   displayedColumns: string[] = [
     'id',
-    'nameBook',
+    'name',
     'categoryName',
     'userName',
     'dueDate',
@@ -64,7 +80,41 @@ export class RentalListComponent implements OnInit, AfterViewInit {
     'status',
     'action',
   ];
-
+  onSubmit() {
+    this.keyName = this.searchForm.get('nameOrUserName')?.value;
+    console.log('Input value', this.keyName);
+    this.newData = [];
+    this.searchNameOrUserName(
+      this.keyName,
+      this.selectedValue,
+      this.rentalList
+    );
+    this.dataSource.data = this.newData;
+  }
+  onLend(id: string) {
+    this.rentalService.getRentalById(id).subscribe((res) => {
+      this.newRental = res;
+      console.log(this.newRental);
+      this.newRental.status = 'Đã trả';
+      this.newRental.returnDate = this.currentDate;
+      console.log(this.newRental.bookId);
+      this.rentalService.updateRental(id, this.newRental).subscribe(() => {
+        this.updateBookList(this.newRental.bookId);
+        console.log('tra thanh cong');
+        this.fetchRentalList();
+      });
+    });
+  }
+  updateBookList(id: string) {
+    this.bookService.getBookById(id).subscribe((res) => {
+      this.newBook = res;
+      this.newBook.remainingStock = this.newBook.remainingStock + 1;
+      this.bookService.updateBook(id, this.newBook).subscribe(() => {
+        console.log('cap nhat so luong sach thanh cong');
+        this.fetchRentalList();
+      });
+    });
+  }
   fetchRentalList(): void {
     forkJoin({
       bookDatas: this.bookService.getBooks(),
@@ -72,33 +122,66 @@ export class RentalListComponent implements OnInit, AfterViewInit {
       rentalDatas: this.rentalService.getRentalList(),
     }).subscribe((response) => {
       console.log('thanh cong');
+      this.categoryDatas = response.categoryDatas;
       this.dataBookCategoryRental = [
         response.bookDatas,
         response.categoryDatas,
         response.rentalDatas,
       ];
+
+      //console.log(this.dataBookCategoryRental)
       this.bookList = this.mergeArraysByCategory(
         this.dataBookCategoryRental[0],
-        this.dataBookCategoryRental[1], 
+        this.dataBookCategoryRental[1],
         'categoryId',
         'id'
-        );
-        console.log(this.bookList);
-        this.rentalList = this.mergeArraysByCategory(
-          this.dataBookCategoryRental[2],
-          this.bookList,
-          'bookId',
-          'id'
-        )
-        this.dataSource.data = this.rentalList;
-        console.log(this.rentalList)
+      );
+
+      console.log(this.bookList);
+      this.rentalList = this.mergeArraysByCategory(
+        this.dataBookCategoryRental[2],
+        this.bookList,
+        'bookId',
+        'id',
+        'name'
+      );
+      // this.dataSource.data = this.rentalList;
+      this.searchNameOrUserName(
+        this.keyName,
+        this.selectedValue,
+        this.rentalList
+      );
+      this.dataSource.data = this.newData;
+      // console.log('rental', this.rentalList);
     });
+  }
+  searchNameOrUserName(name: string, select: string, list: any[]) {
+    this.newData = list.filter((rental) => {
+      if (
+        (this.normalizeString(rental.name).includes(
+          this.normalizeString(name)
+        ) ||
+          this.normalizeString(rental.userName).includes(
+            this.normalizeString(name)
+          )) &&
+        rental.categoryName.includes(select)
+      )
+        return rental;
+    });
+  }
+  removeDiacritics(keyword: string) {
+    return keyword.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  normalizeString(keyword: string) {
+    return this.removeDiacritics((keyword || '').toLowerCase());
   }
   mergeArraysByCategory(
     array1: any[],
     array2: any[],
     field1: string,
-    field2: string
+    field2: string,
+    field3?: string
   ) {
     const mapObj2: { [key: string]: any } = {};
 
@@ -115,9 +198,13 @@ export class RentalListComponent implements OnInit, AfterViewInit {
         const mergedObject = {
           id: obj1.id,
           ...obj1,
+
           categoryName: obj2.categoryName,
         };
-
+        // console.log('hello',mergedObject)
+        if (field3 !== undefined && obj2[field3] !== undefined) {
+          mergedObject[field3] = obj2[field3];
+        }
         mergedArray.push(mergedObject);
       }
     });

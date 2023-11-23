@@ -128,14 +128,14 @@ export class BookListComponent implements OnInit, AfterViewInit {
         id: uuidv4(),
         bookId: id,
         userName: '',
-        nameBook: mapObj2[id].name,
+        name: mapObj2[id].name,
         categoryName: mapObj2[id].categoryName,
         dueDate: '',
         status: 'Đang mượn',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      const { nameBook, categoryName, ...result1 } = result;
+      const { name, categoryName, ...result1 } = result;
       this.rentalService.createRental(result1).subscribe((res) => {
         alert('Mượn thành công');
         bookBorrow.remainingStock = bookBorrow.remainingStock - 1;
@@ -217,6 +217,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
   templateUrl: 'dialogBook.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,

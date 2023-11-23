@@ -12,7 +12,7 @@ export interface IRental {
   status: 'Đã trả' | 'Đang mượn';
 }
 export interface IRentalList extends IRental {
-  nameBook: string;
+  name: string;
   categoryName: string;
   bookId: string;
 }
