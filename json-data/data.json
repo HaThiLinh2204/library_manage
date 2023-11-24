@@ -1,113 +1,42 @@
 {
   "books": [
     {
-      "name": "Nghệ thuật tối giản: Có ít đi, sống nhiều hơn",
-      "categoryId": "3",
-      "quantity": 33,
-      "remainingStock": 0,
-      "id": "2"
-    },
-    {
-      "id": "3",
-      "name": "Sống như bông pháo hoa",
-      "categoryId": "2",
-      "quantity": 34,
-      "remainingStock": 32
-    },
-    {
-      "id": "4",
-      "name": "Ba người thầy vĩ đại",
-      "categoryId": "2",
-      "quantity": 10,
-      "remainingStock": 8
-    },
-    {
-      "id": "5",
-      "name": "Đừng cố làm người tốt trong mắt tất cả mọi người",
-      "categoryId": "2",
-      "quantity": 24,
-      "remainingStock": 23
-    },
-    {
-      "id": "7",
-      "name": "Sống xanh không khó",
-      "categoryId": "2",
-      "quantity": 24,
-      "remainingStock": 24
-    },
-    {
-      "id": "8",
-      "name": "Trưởng thành sau ngàn lần tranh đấu",
-      "categoryId": "2",
-      "quantity": 34,
-      "remainingStock": 34
-    },
-    {
-      "id": "9",
-      "name": "Hãy khiến tương lai biết ơn vì hiện tại bạn đã cố gắng hết mình",
-      "categoryId": "2",
-      "quantity": 34,
-      "remainingStock": 34
-    },
-    {
-      "id": "10",
-      "name": "Ổn định hay tự do - Tác giả Trương Học Vĩ",
-      "categoryId": "2",
-      "quantity": 34,
-      "remainingStock": 34
-    },
-    {
-      "name": "Gửi bạn người đã kiệt sức vì những chịu đựng âm thầm",
-      "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
-      "quantity": 34,
-      "remainingStock": 34,
-      "id": "11"
-    },
-    {
-      "name": "chưa kip lớn",
-      "categoryId": "2",
-      "quantity": 23,
-      "remainingStock": 23,
-      "id": "12"
+      "id": "c7a950cb-a5bc-423c-ae60-e06919caacc7",
+      "name": "Conan",
+      "categoryId": "ae20892f-5168-4140-8c09-0811131c93b0",
+      "quantity": 30,
+      "remainingStock": 29
     },
     {
       "name": "Doreamon",
-      "categoryId": "3",
+      "categoryId": "ae20892f-5168-4140-8c09-0811131c93b0",
       "quantity": 10,
       "remainingStock": 10,
-      "id": "9963fb2a-5aa4-473f-8c73-6f1707839816"
-    },
-    {
-      "name": "Harry Potter",
-      "categoryId": "f88f4708-8357-4771-9e98-72f79873a21d",
-      "quantity": 12,
-      "remainingStock": 12,
-      "id": "461a0b94-18da-4f52-800e-d4f72b8092ea"
-    },
-    {
-      "id": "ae76df44-f925-4ed9-ad77-d9291c406d29",
-      "name": "Miko",
-      "categoryId": "3",
-      "quantity": 10,
-      "remainingStock": 9
+      "id": "64f2e0a7-125f-4c7c-a64e-427b5ecb3ec8"
     },
     {
       "name": "Trên đường băng",
       "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
+      "quantity": 30,
+      "remainingStock": 30,
+      "id": "b3f85aa6-07a9-4046-8f43-96cc077e1c39"
+    },
+    {
+      "id": "d284be7d-cbc3-4f91-b097-1e157169d3d6",
+      "name": "Đắc nhân tâm",
+      "categoryId": "00e84b11-8b85-4159-aed4-96daddc59c2e",
       "quantity": 12,
-      "remainingStock": 12,
-      "id": "50352ddc-d51f-4835-b5af-107953fee499"
+      "remainingStock": 12
+    },
+    {
+      "name": "Dế mèn phưu lưu ký",
+      "categoryId": "00e84b11-8b85-4159-aed4-96daddc59c2e",
+      "quantity": 23,
+      "remainingStock": 23,
+      "id": "551c0d0a-da19-4123-8429-1b812d99bd27"
     }
   ],
   "categories": [
-    {
-      "id": "2",
-      "categoryName": "Kỹ năng 1"
-    },
-    {
-      "id": "3",
-      "categoryName": "Truyện tranh"
-    },
     {
       "id": "f88f4708-8357-4771-9e98-72f79873a21d",
       "categoryName": "Trinh thám"
@@ -117,123 +46,37 @@
       "categoryName": "Kỹ năng 2"
     },
     {
-      "id": "cc5e2191-6ec5-4c19-89a7-9476cd934f6f",
+      "id": "ae20892f-5168-4140-8c09-0811131c93b0",
+      "categoryName": "Truyện tranh"
+    },
+    {
+      "id": "00e84b11-8b85-4159-aed4-96daddc59c2e",
+      "categoryName": "Văn học"
+    },
+    {
+      "id": "ee08fb3a-6971-4615-90b2-ed8952b397e1",
       "categoryName": "Truyện kinh dị"
+    },
+    {
+      "id": "cdb912a3-e640-446a-be22-d31d3aac0920",
+      "categoryName": "Toán học"
     }
   ],
   "rentals": [
     {
-      "id": "2",
-      "bookId": "2",
-      "userName": "Jane Smith",
-      "dueDate": "2023-12-05",
-      "returnDate": null,
-      "status": "Đang mượn"
-    },
-    {
-      "id": "3",
-      "bookId": "4",
-      "userName": "Alice Johnson",
-      "dueDate": "2023-11-25",
-      "returnDate": "2023-11-23",
-      "status": "Đã trả"
-    },
-    {
-      "id": "4",
-      "bookId": "5",
-      "userName": "Mark Brown",
-      "dueDate": "2023-12-10",
-      "returnDate": null,
-      "status": "Đang mượn"
-    },
-    {
-      "id": "5",
-      "bookId": "3",
-      "userName": "Emma Garcia",
-      "dueDate": "2023-12-15",
-      "returnDate": "2023-11-24T05:44:24.616Z",
-      "status": "Đã trả"
-    },
-    {
-      "id": "cf0dd3fa-77bf-46e8-b19e-1315c5adbaab",
-      "bookId": "3",
-      "userName": "Ha Linh",
-      "dueDate": "2023-11-23T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "8b628379-1fa9-4ed5-924f-21bc02524424",
-      "bookId": "3",
-      "userName": "fds",
-      "dueDate": "2023-11-21T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "a5659abc-8ea9-400d-8cd7-634555652f4a",
-      "bookId": "3",
-      "userName": "gffg",
-      "dueDate": "2023-11-23T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "03c2c177-ea1d-44a7-91b6-d870592c39de",
-      "bookId": "3",
-      "userName": "Linh linh",
-      "dueDate": "2023-11-23T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "c28dc2b2-18dd-4a9e-89a3-094c3aba25ff",
-      "bookId": "4",
-      "userName": "aaabbb",
-      "dueDate": "2023-11-23T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "051b7aea-e249-418f-8151-319150312196",
-      "bookId": "ae76df44-f925-4ed9-ad77-d9291c406d29",
-      "userName": "cute",
-      "dueDate": "2023-11-24T17:00:00.000Z",
-      "status": "Đang mượn"
-    },
-    {
-      "id": "19bb77fc-8264-4726-855e-13072a4d626e",
-      "bookId": "5",
-      "userName": "lluhduih",
-      "dueDate": "2023-11-23T17:00:00.000Z",
+      "id": "30b0f199-b76a-4258-bc4b-6b677d690002",
+      "bookId": "d284be7d-cbc3-4f91-b097-1e157169d3d6",
+      "userName": "Ha linh",
+      "dueDate": "2023-11-27T17:00:00.000Z",
       "status": "Đã trả",
-      "returnDate": "2023-11-23T07:58:50.604Z"
+      "returnDate": "2023-11-24T08:36:41.746Z"
     },
     {
-      "id": "a0a1caf4-b848-4712-a008-d4fde48956f3",
-      "bookId": "5",
-      "userName": "kkkkkk",
-      "dueDate": "2023-11-29T17:00:00.000Z",
-      "status": "Đã trả",
-      "returnDate": "2023-11-23T07:55:41.254Z"
-    },
-    {
-      "id": "18c1b24c-fea5-4068-81be-2bbf106d0997",
-      "bookId": "5",
-      "userName": "linhhh",
-      "dueDate": "2023-11-29T17:00:00.000Z",
-      "status": "Đã trả",
-      "returnDate": "2023-11-23T07:57:19.122Z"
-    },
-    {
-      "id": "ece9881a-289b-46ce-8db1-72cbb0b6424f",
-      "bookId": "4",
-      "userName": "xin chao",
-      "dueDate": "2023-11-29T17:00:00.000Z",
+      "id": "ca3a6bde-4ee4-47f4-b6eb-069b60e2a744",
+      "bookId": "c7a950cb-a5bc-423c-ae60-e06919caacc7",
+      "userName": "",
+      "dueDate": "",
       "status": "Đang mượn"
-    },
-    {
-      "id": "978ac589-cfff-41ec-906f-410ed702f767",
-      "bookId": "3",
-      "userName": "linh",
-      "dueDate": "2023-11-24T17:00:00.000Z",
-      "status": "Đã trả",
-      "returnDate": "2023-11-23T10:32:51.134Z"
     }
   ]
 }

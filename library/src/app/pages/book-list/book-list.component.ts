@@ -16,13 +16,14 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { forkJoin } from 'rxjs';
+import { filter, forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
 import { Router } from '@angular/router';
@@ -36,7 +37,6 @@ import { IRental, IRentalList } from 'src/app/model/rental.model';
 import { MatNativeDateModule } from '@angular/material/core';
 import { v4 as uuidv4 } from 'uuid';
 import { RentalService } from 'src/app/service/rental.service';
-
 
 @Component({
   selector: 'app-book-list',
@@ -135,7 +135,9 @@ export class BookListComponent implements OnInit, AfterViewInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      const { name, categoryName, ...result1 } = result;
+      if(result){
+        console.log(result)
+        const { name, categoryName, ...result1 } = result;
       this.rentalService.createRental(result1).subscribe((res) => {
         alert('Mượn thành công');
         bookBorrow.remainingStock = bookBorrow.remainingStock - 1;
@@ -144,6 +146,8 @@ export class BookListComponent implements OnInit, AfterViewInit {
         });
       });
       console.log(result1);
+      }
+      
     });
   }
   fetchBookList(): void {
@@ -167,11 +171,14 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
   searchName(name: string, select: string, bookLists: any[]) {
     this.newBookDatas = bookLists.filter((book) => {
-      if (
-        this.normalizeString(book.name).includes(this.normalizeString(name)) &&
-        book.categoryName.includes(select)
-      )
+      const result = select
+        ? this.normalizeString(book.name).includes(
+            this.normalizeString(name)
+          ) && book.categoryId == select
+        : this.normalizeString(book.name).includes(this.normalizeString(name));
+      if (result) {
         return book;
+      }
     });
   }
   removeDiacritics(keyword: string) {
@@ -216,7 +223,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
   selector: 'dialog-book',
   templateUrl: 'dialogBook.component.html',
   standalone: true,
-  styleUrls:['./dialogBook.component.css'],
+  styleUrls: ['./dialogBook.component.css'],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -226,10 +233,13 @@ export class BookListComponent implements OnInit, AfterViewInit {
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [MatDatepickerModule, MatNativeDateModule],
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialog implements OnInit{
+  userName!: FormControl;
+  dueDate!: FormControl;
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IRentalList
@@ -237,5 +247,11 @@ export class DialogOverviewExampleDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  ngOnInit(): void {
+    this.userName = new FormControl('',[Validators.required]);
+    this.dueDate = new FormControl('',[Validators.required]);
+    this.userName.setValue(this.data.userName);
+    this.dueDate.setValue(this.data.dueDate)
   }
 }
