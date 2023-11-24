@@ -8,13 +8,6 @@
       "remainingStock": 29
     },
     {
-      "name": "Doreamon",
-      "categoryId": "ae20892f-5168-4140-8c09-0811131c93b0",
-      "quantity": 10,
-      "remainingStock": 10,
-      "id": "64f2e0a7-125f-4c7c-a64e-427b5ecb3ec8"
-    },
-    {
       "name": "Trên đường băng",
       "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
       "quantity": 30,
@@ -43,7 +36,7 @@
     },
     {
       "id": "125759b8-9498-4727-ac48-fedc3509ffc3",
-      "categoryName": "Kỹ năng 2"
+      "categoryName": "Kỹ năng "
     },
     {
       "id": "ae20892f-5168-4140-8c09-0811131c93b0",
