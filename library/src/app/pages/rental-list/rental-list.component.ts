@@ -157,16 +157,25 @@ export class RentalListComponent implements OnInit, AfterViewInit {
   }
   searchNameOrUserName(name: string, select: string, list: any[]) {
     this.newData = list.filter((rental) => {
-      if (
-        (this.normalizeString(rental.name).includes(
+
+      const result = select?
+      ((this.normalizeString(rental.name).includes(
+        this.normalizeString(name)
+      ) ||
+        this.normalizeString(rental.userName).includes(
           this.normalizeString(name)
-        ) ||
-          this.normalizeString(rental.userName).includes(
-            this.normalizeString(name)
-          )) &&
-        rental.categoryName.includes(select)
-      )
-        return rental;
+        )) &&
+      rental.categoryId == select):
+      (this.normalizeString(rental.name).includes(
+        this.normalizeString(name)
+      ) ||
+        this.normalizeString(rental.userName).includes(
+          this.normalizeString(name)
+        ));
+
+          if(result){
+            return rental;
+          }
     });
   }
   removeDiacritics(keyword: string) {

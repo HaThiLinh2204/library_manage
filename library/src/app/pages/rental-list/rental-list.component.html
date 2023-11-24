@@ -6,7 +6,7 @@
     <mat-form-field>
       <mat-label>Danh mục</mat-label>
       <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{ standalone: true }" name="categoryId">
-        <mat-option *ngFor="let category of categoryDatas" [value]="category.categoryName">
+        <mat-option *ngFor="let category of categoryDatas" [value]="category.id">
           {{ category.categoryName }}
         </mat-option>
       </mat-select>
