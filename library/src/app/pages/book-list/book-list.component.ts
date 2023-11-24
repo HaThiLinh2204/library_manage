@@ -238,8 +238,8 @@ export class BookListComponent implements OnInit, AfterViewInit {
   providers: [MatDatepickerModule, MatNativeDateModule],
 })
 export class DialogOverviewExampleDialog implements OnInit{
-  userName!: FormControl;
-  dueDate!: FormControl;
+  borrowForm!: FormGroup
+  
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IRentalList
@@ -249,9 +249,20 @@ export class DialogOverviewExampleDialog implements OnInit{
     this.dialogRef.close();
   }
   ngOnInit(): void {
-    this.userName = new FormControl('',[Validators.required]);
-    this.dueDate = new FormControl('',[Validators.required]);
-    this.userName.setValue(this.data.userName);
-    this.dueDate.setValue(this.data.dueDate)
+    this.borrowForm = new FormGroup({
+      id: new FormControl(this.data.id,[Validators.required]),
+      name: new FormControl(this.data.name,[Validators.required]),
+      categoryName: new FormControl(this.data.categoryName,[Validators.required]),
+      userName : new FormControl(this.data.userName,[Validators.required]),
+      dueDate : new FormControl(this.data.dueDate,[Validators.required]),
+      returnDate: new FormControl(this.data.returnDate,[Validators.required]),
+      status:new FormControl(this.data.status,[Validators.required]),
+      bookId:new FormControl(this.data.bookId,[Validators.required]),
+    }
+
+     
+    )
+    
+ 
   }
 }

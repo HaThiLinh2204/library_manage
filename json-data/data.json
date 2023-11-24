@@ -70,13 +70,6 @@
       "dueDate": "2023-11-27T17:00:00.000Z",
       "status": "Đã trả",
       "returnDate": "2023-11-24T08:36:41.746Z"
-    },
-    {
-      "id": "ca3a6bde-4ee4-47f4-b6eb-069b60e2a744",
-      "bookId": "c7a950cb-a5bc-423c-ae60-e06919caacc7",
-      "userName": "",
-      "dueDate": "",
-      "status": "Đang mượn"
     }
   ]
 }

@@ -1,18 +1,39 @@
 <div mat-dialog-content>
   <h3>Thông tin mượn sách</h3>
-  <div>
-    <mat-form-field>
-      <mat-label>Tên sách</mat-label>
-      <input matInput [(ngModel)]="data.name" [readonly]="true" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <mat-label>Danh mục</mat-label>
-      <input matInput [(ngModel)]="data.categoryName" [readonly]="true" />
-    </mat-form-field>
-  </div>
-
+  <form class="example-form" [formGroup]="borrowForm">
+    <div>
+        <mat-form-field>
+          <mat-label>Tên sách</mat-label>
+          <input matInput formControlName="name" [readonly]="true" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Danh mục</mat-label>
+          <input matInput formControlName="categoryName" [readonly]="true" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Người mượn</mat-label>
+          <input matInput formControlName="userName" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Ngày hẹn trả</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    
+</form>
+  
   <!-- <p>{{ data.nameBook }}</p> -->
   <!-- <div>
         <mat-form-field>
@@ -30,26 +51,9 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
     </div> -->
-  <div>
-    <mat-form-field>
-      <mat-label>Người mượn</mat-label>
-      <input matInput [formControl]="userName" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
-      <mat-label>Ngày hẹn trả</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="dueDate" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
+  
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Đóng</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mượn</button>
+  <button mat-button (click)="onNoClick()" [mat-dialog-close]="false">Đóng</button>
+  <button mat-button [disabled]="!borrowForm.value.userName.valid||!borrowForm.value.dueDate.valid" [mat-dialog-close]="borrowForm.value" cdkFocusInitial>Mượn</button>
 </div>

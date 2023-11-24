@@ -14,5 +14,4 @@ export interface IRental {
 export interface IRentalList extends IRental {
   name: string;
   categoryName: string;
-  bookId: string;
 }
