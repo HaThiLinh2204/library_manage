@@ -216,6 +216,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
   selector: 'dialog-book',
   templateUrl: 'dialogBook.component.html',
   standalone: true,
+  styleUrls:['./dialogBook.component.css'],
   imports: [
     CommonModule,
     MatDialogModule,

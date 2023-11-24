@@ -1,5 +1,5 @@
-
-<h1>Thư viện số</h1>
+<div >
+  <h1>Thư viện số</h1>
 <nav>
   <ul>
     <li><a [routerLink]="['/book-list']" routerLinkActive="active" ariaCurrentWhenActive="page">Danh sách sách</a></li>
@@ -7,4 +7,7 @@
     <li><a [routerLink]="['/new-book']"  routerLinkActive="active" ariaCurrentWhenActive="page">Thêm mới/cập nhật sách</a></li>
     <li><a [routerLink]="['/rental-list']"  routerLinkActive="active" ariaCurrentWhenActive="page">Danh sách mượn sách</a></li>
   </ul>
+  <button mat-raised-button (click)="onLogOut()">Đăng xuất</button>
 </nav>
+
+</div>

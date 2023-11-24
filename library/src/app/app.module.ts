@@ -21,6 +21,7 @@ import { RentalListComponent } from './pages/rental-list/rental-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [AppComponent, NavigationBarComponent],
   imports: [
@@ -32,6 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     BrowserAnimationsModule,
     MatDatepickerModule, 
     MatNativeDateModule,
+    MatButtonModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },

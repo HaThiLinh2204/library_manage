@@ -3,7 +3,7 @@
     {
       "name": "Nghệ thuật tối giản: Có ít đi, sống nhiều hơn",
       "categoryId": "3",
-      "quantity": 34,
+      "quantity": 33,
       "remainingStock": 0,
       "id": "2"
     },
@@ -12,7 +12,7 @@
       "name": "Sống như bông pháo hoa",
       "categoryId": "2",
       "quantity": 34,
-      "remainingStock": 31
+      "remainingStock": 32
     },
     {
       "id": "4",
@@ -71,13 +71,6 @@
       "id": "12"
     },
     {
-      "name": "Trên đường băng",
-      "categoryId": "2",
-      "quantity": 34,
-      "remainingStock": 34,
-      "id": "13"
-    },
-    {
       "name": "Doreamon",
       "categoryId": "3",
       "quantity": 10,
@@ -97,6 +90,13 @@
       "categoryId": "3",
       "quantity": 10,
       "remainingStock": 9
+    },
+    {
+      "name": "Trên đường băng",
+      "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
+      "quantity": 12,
+      "remainingStock": 12,
+      "id": "50352ddc-d51f-4835-b5af-107953fee499"
     }
   ],
   "categories": [
@@ -151,8 +151,8 @@
       "bookId": "3",
       "userName": "Emma Garcia",
       "dueDate": "2023-12-15",
-      "returnDate": null,
-      "status": "Đang mượn"
+      "returnDate": "2023-11-24T05:44:24.616Z",
+      "status": "Đã trả"
     },
     {
       "id": "cf0dd3fa-77bf-46e8-b19e-1315c5adbaab",
@@ -226,6 +226,14 @@
       "userName": "xin chao",
       "dueDate": "2023-11-29T17:00:00.000Z",
       "status": "Đang mượn"
+    },
+    {
+      "id": "978ac589-cfff-41ec-906f-410ed702f767",
+      "bookId": "3",
+      "userName": "linh",
+      "dueDate": "2023-11-24T17:00:00.000Z",
+      "status": "Đã trả",
+      "returnDate": "2023-11-23T10:32:51.134Z"
     }
   ]
 }
