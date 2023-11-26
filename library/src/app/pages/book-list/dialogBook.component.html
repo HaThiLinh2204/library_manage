@@ -37,6 +37,7 @@
   
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()" [mat-dialog-close]="false">Đóng</button>
-  <button mat-button [disabled]="!borrowForm.value.userName.valid||!borrowForm.value.dueDate.valid" [mat-dialog-close]="borrowForm.value" cdkFocusInitial>Mượn</button>
+  <button mat-raised-button (click)="onNoClick()" [mat-dialog-close]="false">Đóng</button>
+  <button mat-raised-button [mat-dialog-close]="borrowForm.value" cdkFocusInitial>Mượn</button>
+  <!-- <button mat-button *ngIf="borrowForm.value.userName.valid" [mat-dialog-close]="borrowForm.value" cdkFocusInitial>Mượn</button> -->
 </div>

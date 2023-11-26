@@ -1,33 +1,33 @@
 <div class="app-login-screen">
-  <h1 align="center">Sign In</h1>
+  <h1 align="center">Trang đăng nhập</h1>
   <form class="example-form" [formGroup]="loginForm">
     <mat-form-field class="example-full-width">
-      <mat-label>Username</mat-label>
+      <mat-label>Tên đăng nhập</mat-label>
       <input type="name" matInput formControlName="name" placeholder="admin" />
       <mat-error *ngIf="
           nameControl.hasError('name') && !nameControl.hasError('required')
         ">
-        Please enter a valid name 
+        Hãy nhập tên đăng nhập
       </mat-error>
       <mat-error *ngIf="nameControl.hasError('required')">
-        Name is <strong>required</strong>
+        Tên đăng nhập là <strong>bắt buộc</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
+      <mat-label>Mật khẩu</mat-label>
       <input type="password" matInput formControlName="password" placeholder="admin" />
       <mat-error *ngIf="
           nameControl.hasError('password') && !nameControl.hasError('required')
         ">
-        Please enter a valid password 
+        Hãy nhập mật khẩu
       </mat-error>
       <mat-error *ngIf="nameControl.hasError('required')">
-        password is <strong>required</strong>
+        Mật khẩu là <strong>bắt buộc</strong>
       </mat-error>
     </mat-form-field>
-    <button mat-raised-button (click)="onSubmit()" type="submit">Submit</button>
+    <button mat-raised-button (click)="onSubmit()" type="submit">Đăng nhập</button>
     <div *ngIf="invalidLogin" class="error">
-      <div>Invalid credentials.</div>
+      <div>Thông tin không hợp lệ</div>
     </div>
   </form>
 </div>

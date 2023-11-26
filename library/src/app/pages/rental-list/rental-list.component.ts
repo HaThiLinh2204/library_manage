@@ -137,14 +137,16 @@ export class RentalListComponent implements OnInit, AfterViewInit {
         'id'
       );
 
-      console.log(this.bookList);
+     // console.log(this.bookList);
       this.rentalList = this.mergeArraysByCategory(
         this.dataBookCategoryRental[2],
         this.bookList,
         'bookId',
         'id',
-        'name'
+        'name',
+        'categoryId'
       );
+      console.log(this.rentalList)
       // this.dataSource.data = this.rentalList;
       this.searchNameOrUserName(
         this.keyName,
@@ -190,7 +192,8 @@ export class RentalListComponent implements OnInit, AfterViewInit {
     array2: any[],
     field1: string,
     field2: string,
-    field3?: string
+    field3?: string,
+    field4?: string
   ) {
     const mapObj2: { [key: string]: any } = {};
 
@@ -213,6 +216,9 @@ export class RentalListComponent implements OnInit, AfterViewInit {
         // console.log('hello',mergedObject)
         if (field3 !== undefined && obj2[field3] !== undefined) {
           mergedObject[field3] = obj2[field3];
+        }
+        if (field4 !== undefined && obj2[field4] !== undefined) {
+          mergedObject[field4] = obj2[field4];
         }
         mergedArray.push(mergedObject);
       }

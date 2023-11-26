@@ -16,7 +16,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/auth-service/auth.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,

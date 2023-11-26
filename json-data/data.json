@@ -1,68 +1,164 @@
 {
   "books": [
     {
-      "id": "c7a950cb-a5bc-423c-ae60-e06919caacc7",
-      "name": "Conan",
-      "categoryId": "ae20892f-5168-4140-8c09-0811131c93b0",
-      "quantity": 30,
-      "remainingStock": 29
-    },
-    {
-      "name": "Trên đường băng",
-      "categoryId": "125759b8-9498-4727-ac48-fedc3509ffc3",
-      "quantity": 30,
-      "remainingStock": 30,
-      "id": "b3f85aa6-07a9-4046-8f43-96cc077e1c39"
-    },
-    {
-      "id": "d284be7d-cbc3-4f91-b097-1e157169d3d6",
-      "name": "Đắc nhân tâm",
-      "categoryId": "00e84b11-8b85-4159-aed4-96daddc59c2e",
+      "id": "db9f4bb1-b924-43eb-a0ba-d30cdb08b95d",
+      "name": "Công Nghệ Blockchain",
+      "categoryId": "9f97a359-3761-4812-9389-2c6bd72d4028",
       "quantity": 12,
       "remainingStock": 12
     },
     {
-      "name": "Dế mèn phưu lưu ký",
-      "categoryId": "00e84b11-8b85-4159-aed4-96daddc59c2e",
-      "quantity": 23,
-      "remainingStock": 23,
-      "id": "551c0d0a-da19-4123-8429-1b812d99bd27"
+      "id": "c98168f9-6e14-4516-bb12-a00e3e5c22ba",
+      "name": "Learning Vue.js 2",
+      "categoryId": "9f97a359-3761-4812-9389-2c6bd72d4028",
+      "quantity": 12,
+      "remainingStock": 11
+    },
+    {
+      "name": "Giải Thuật Và Lập Trình",
+      "categoryId": "9f97a359-3761-4812-9389-2c6bd72d4028",
+      "quantity": 10,
+      "remainingStock": 10,
+      "id": "ba4c39d9-5b8c-4a82-a608-8ec1bd1ec9fd"
+    },
+    {
+      "name": "Cuộc Cách Mạng Ngược Trong Khoa Học",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 13,
+      "remainingStock": 13,
+      "id": "70a33f3d-9184-4e9d-9215-12e40b20b05e"
+    },
+    {
+      "name": "Sự Kiến Tạo Xã Hội Về Thực Tại",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 12,
+      "remainingStock": 12,
+      "id": "4df11449-3ce0-489e-b5ff-c9872ef30e6f"
+    },
+    {
+      "name": "Một Giọt Từ Sự Đọa Đầy",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 14,
+      "remainingStock": 14,
+      "id": "32d0ca7d-b23c-411e-8ca9-fe1384ec59cb"
+    },
+    {
+      "name": "Những Huyền Thoại",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 16,
+      "remainingStock": 16,
+      "id": "108a2cf3-45aa-4533-ab8b-40225f34d73f"
+    },
+    {
+      "name": "Trò Chuyện Triết Học",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 22,
+      "remainingStock": 22,
+      "id": "f5e1043d-a23b-47b4-9d02-357f4aa76d72"
+    },
+    {
+      "name": "Chủ Nghĩa Tự Do Truyền Thống",
+      "categoryId": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "quantity": 21,
+      "remainingStock": 21,
+      "id": "6edb8725-ae6b-4ad1-8a14-2647290f0fa1"
+    },
+    {
+      "id": "a8dd0f98-9832-4d77-a755-0c2a32cd4f8d",
+      "name": "Buratino Và Chiếc Chìa Khoá Vàng",
+      "categoryId": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
+      "quantity": 2,
+      "remainingStock": 0
+    },
+    {
+      "name": "Truyện Kể Tây Tạng",
+      "categoryId": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
+      "quantity": 15,
+      "remainingStock": 15,
+      "id": "6e125b73-48f9-453a-9663-3e01eb5b0e9a"
+    },
+    {
+      "name": "Truyện cổ Ả-Rập",
+      "categoryId": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
+      "quantity": 21,
+      "remainingStock": 21,
+      "id": "6547e8ea-3e54-459e-b9ef-f3f516a5515f"
+    },
+    {
+      "name": "Thần Thoại Hy Lạp",
+      "categoryId": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
+      "quantity": 15,
+      "remainingStock": 15,
+      "id": "2a450335-509c-4339-8319-51946b87bf9e"
     }
   ],
   "categories": [
     {
-      "id": "f88f4708-8357-4771-9e98-72f79873a21d",
-      "categoryName": "Trinh thám"
+      "id": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
+      "categoryName": "Cổ tích - thần thoại"
     },
     {
-      "id": "125759b8-9498-4727-ac48-fedc3509ffc3",
-      "categoryName": "Kỹ năng "
+      "id": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "categoryName": "Tâm lý - Kỹ năng sống"
     },
     {
-      "id": "ae20892f-5168-4140-8c09-0811131c93b0",
+      "id": "54e6f7cb-9850-4f19-a595-f46c121cf0c6",
+      "categoryName": "Triết học"
+    },
+    {
+      "id": "8c9699ef-b98d-461c-bae8-64a764318994",
+      "categoryName": "Truyện ma - Truyện kinh dị"
+    },
+    {
+      "id": "8cc1ca2e-105e-462f-9cfc-da58d5228926",
+      "categoryName": "Tiểu thuyết Trung Quốc"
+    },
+    {
+      "id": "11bf2c85-9ded-493e-bd5c-4b91b45c9a9c",
+      "categoryName": "Văn hóa - Tôn giáo"
+    },
+    {
+      "id": "9f97a359-3761-4812-9389-2c6bd72d4028",
+      "categoryName": "Công nghệ thông tin"
+    },
+    {
+      "id": "0a80c0c9-1ec6-4929-9b5f-c03f1b290fe9",
       "categoryName": "Truyện tranh"
-    },
-    {
-      "id": "00e84b11-8b85-4159-aed4-96daddc59c2e",
-      "categoryName": "Văn học"
-    },
-    {
-      "id": "ee08fb3a-6971-4615-90b2-ed8952b397e1",
-      "categoryName": "Truyện kinh dị"
-    },
-    {
-      "id": "cdb912a3-e640-446a-be22-d31d3aac0920",
-      "categoryName": "Toán học"
     }
   ],
   "rentals": [
     {
-      "id": "30b0f199-b76a-4258-bc4b-6b677d690002",
-      "bookId": "d284be7d-cbc3-4f91-b097-1e157169d3d6",
-      "userName": "Ha linh",
+      "id": "fa7f579c-d1e2-4aeb-baf1-c9251cb6ff1f",
+      "userName": "Hà Linh",
       "dueDate": "2023-11-27T17:00:00.000Z",
+      "returnDate": "2023-11-26T03:42:00.933Z",
       "status": "Đã trả",
-      "returnDate": "2023-11-24T08:36:41.746Z"
+      "bookId": "db9f4bb1-b924-43eb-a0ba-d30cdb08b95d"
+    },
+    
+    {
+      "id": "7264d51c-7897-4eab-aa00-a064be1cb2e9",
+      "userName": "chi chi",
+      "dueDate": "2023-11-27T17:00:00.000Z",
+      "returnDate": null,
+      "status": "Đang mượn",
+      "bookId": "c98168f9-6e14-4516-bb12-a00e3e5c22ba"
+    },
+    {
+      "id": "6dbc01e7-7111-4086-b6d7-03296bc48820",
+      "userName": "quan quann",
+      "dueDate": "2023-11-27T17:00:00.000Z",
+      "returnDate": null,
+      "status": "Đang mượn",
+      "bookId": "a8dd0f98-9832-4d77-a755-0c2a32cd4f8d"
+    },
+    {
+      "id": "0327b6b0-b2a0-4c92-98ef-970676a38874",
+      "userName": "chi chi",
+      "dueDate": "2023-11-26T17:00:00.000Z",
+      "returnDate": null,
+      "status": "Đang mượn",
+      "bookId": "a8dd0f98-9832-4d77-a755-0c2a32cd4f8d"
     }
   ]
 }

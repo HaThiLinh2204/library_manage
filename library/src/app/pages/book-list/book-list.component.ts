@@ -120,9 +120,9 @@ export class BookListComponent implements OnInit, AfterViewInit {
     this.newBookDatas.forEach((obj) => {
       mapObj2[obj['id']] = obj;
     });
-    console.log(mapObj2[id]);
+    //console.log(mapObj2[id]);
     const { categoryName, ...bookBorrow } = mapObj2[id];
-    console.log(bookBorrow);
+    //console.log(bookBorrow);
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       data: {
         id: uuidv4(),

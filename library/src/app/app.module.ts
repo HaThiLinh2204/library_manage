@@ -11,7 +11,7 @@ import { BookListComponent } from './pages/book-list/book-list.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { myGuardGuard } from './my-guard.guard';
+import { myGuardGuard } from './auth-service/my-guard.guard';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CategoryComponent} from './pages/category/category.component';

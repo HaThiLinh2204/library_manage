@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-  <p>{{title}}</p>
+  <p>{{ title }}</p>
 
   <mat-form-field>
     <mat-label>Danh mục</mat-label>
@@ -7,10 +7,10 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Thoát</button>
+  <button mat-raised-button [mat-dialog-close]="false">Thoát</button>
 
   <button
-    mat-button
+    mat-raised-button
     [disabled]="!categoryName.valid"
     [mat-dialog-close]="categoryName.value"
     cdkFocusInitial

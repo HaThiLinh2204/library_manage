@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/auth-service/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',

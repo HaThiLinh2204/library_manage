@@ -1,5 +1,5 @@
 <form class="example-form" [formGroup]="bookForm">
-  <h3>Trang chỉnh sửa</h3>
+  <h2>{{titleName}}</h2>
   <div>
     <mat-form-field class="example-full-width">
       <mat-label>Tên sách</mat-label>
@@ -24,7 +24,7 @@
   </div>
   <div class="button-class">
     <button mat-raised-button type="submit" (click)="onCancel()">Thoát</button>
-    <button mat-raised-button type="submit" (click)="onUpdate()">Lưu</button>
+    <button mat-raised-button *ngIf="bookForm.valid" type="submit" (click)="onUpdate()">Lưu</button>
   </div>
 
 </form>

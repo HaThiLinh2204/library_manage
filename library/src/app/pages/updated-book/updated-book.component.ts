@@ -49,6 +49,7 @@ export class UpdatedBookComponent implements OnInit {
   categoryDatas: ICategory[] = [];
   isUpdate: boolean = false;
   currentUrl: string = '';
+  titleName: string = 'hh';
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -64,7 +65,7 @@ export class UpdatedBookComponent implements OnInit {
     this.bookForm = this.formBuilder.group({
       name: ['', Validators.required],
       categoryId: ['', Validators.required],
-      quantity: ['', Validators.required],
+      quantity: [0, Validators.required],
       remainingStock: [0, Validators.required],
     });
     this.currentUrl = this.router.url;
@@ -72,6 +73,7 @@ export class UpdatedBookComponent implements OnInit {
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
+      this.titleName = 'Chỉnh sửa sách';
       this.bookId = idParam;
       this.bookService.getBookById(this.bookId).subscribe((book) => {
         this.bookForm.patchValue({
@@ -83,15 +85,19 @@ export class UpdatedBookComponent implements OnInit {
       });
     } else {
       this.router.navigate(['/new-book']);
+      this.titleName = 'Thêm mới sách';
       console.log('Không có ID sách được cung cấp.');
     }
   }
   onUpdate() {
-    console.log(this.bookForm.value);
+   // console.log(this.bookForm.value);
+
     if (this.bookForm.valid) {
       console.log(typeof this.router.url);
 
       if (this.router.url === '/new-book') {
+        
+        console.log(this.titleName);
         this.bookForm.value.remainingStock = this.bookForm.value.quantity;
 
         this.newBook.id = uuidv4();
@@ -99,7 +105,7 @@ export class UpdatedBookComponent implements OnInit {
         this.newBook.name = this.bookForm.value.name;
         this.newBook.quantity = this.bookForm.value.quantity;
         this.newBook.remainingStock = this.bookForm.value.remainingStock;
-
+        
         this.bookService.createbook(this.newBook).subscribe((res) => {
           console.log(res);
           alert('thanh cong');
@@ -107,11 +113,13 @@ export class UpdatedBookComponent implements OnInit {
         this.bookForm = this.formBuilder.group({
           name: ['', Validators.required],
           categoryId: ['', Validators.required],
-          quantity: ['', Validators.required],
+          quantity: [0, Validators.required],
           remainingStock: [0, Validators.required],
         });
       } else {
+        
         const updatedBook = this.bookForm.value;
+        updatedBook.remainingStock = this.bookForm.value.quantity;
         this.bookService.updateBook(this.bookId, updatedBook).subscribe(() => {
           console.log('Thông tin sách đã được cập nhật.');
           this.isUpdate = true;
