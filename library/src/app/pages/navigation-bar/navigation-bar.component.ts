@@ -7,20 +7,13 @@ import { AuthService } from 'src/app/auth-service/auth.service';
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.css'],
-  
 })
-export class NavigationBarComponent implements OnInit{
+export class NavigationBarComponent implements OnInit {
   isLoggedIn: boolean = false;
-  constructor(private authService : AuthService, private router: Router,){
-
+  constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit(): void {}
+  onLogOut() {
+    this.authService.isLoggedIn = false;
+    this.router.navigate([`/login`]);
   }
-  ngOnInit(): void {
-  
-    
-  }
-  onLogOut(){
-   this.authService.isLoggedIn = false;
-   this.router.navigate([`/login`]);
-  }
-
 }

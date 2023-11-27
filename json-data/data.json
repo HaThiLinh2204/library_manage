@@ -78,11 +78,11 @@
       "id": "6e125b73-48f9-453a-9663-3e01eb5b0e9a"
     },
     {
+      "id": "6547e8ea-3e54-459e-b9ef-f3f516a5515f",
       "name": "Truyện cổ Ả-Rập",
       "categoryId": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
       "quantity": 21,
-      "remainingStock": 21,
-      "id": "6547e8ea-3e54-459e-b9ef-f3f516a5515f"
+      "remainingStock": 20
     },
     {
       "name": "Thần Thoại Hy Lạp",
@@ -90,12 +90,61 @@
       "quantity": 15,
       "remainingStock": 15,
       "id": "2a450335-509c-4339-8319-51946b87bf9e"
+    },
+    {
+      "name": "Tử huyệt cảm xúc",
+      "categoryId": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "quantity": 12,
+      "remainingStock": 12,
+      "id": "29fc93e0-3cf6-4785-b2a4-c798a06d864d"
+    },
+    {
+      "id": "9cf57bab-0c18-4f08-865a-f06ad322da63",
+      "name": "Năng Đoạn Kim Cương",
+      "categoryId": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "quantity": 10,
+      "remainingStock": 9
+    },
+    {
+      "name": "7 Thói Quen Để Thành Đạt",
+      "categoryId": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "quantity": 4,
+      "remainingStock": 4,
+      "id": "596ce2ff-8664-4335-9929-b97e7c376e80"
+    },
+    {
+      "id": "d9dc14a2-6cd3-467f-b3c8-6e62a24b5273",
+      "name": "Đời Đơn Giản Khi Ta Đơn Giản",
+      "categoryId": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "quantity": 2,
+      "remainingStock": 1
+    },
+    {
+      "name": "Hạnh Phúc Thật Giản Đơn",
+      "categoryId": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
+      "quantity": 5,
+      "remainingStock": 5,
+      "id": "3434c88c-f7e9-4971-93cc-87f62e5c68f7"
+    },
+    {
+      "name": "Những Người Đàn Bà Tắm",
+      "categoryId": "8cc1ca2e-105e-462f-9cfc-da58d5228926",
+      "quantity": 3,
+      "remainingStock": 3,
+      "id": "271966c2-d7ed-4384-bfc2-cdcf240be10f"
+    },
+    {
+      "name": "Đông Chu Liệt Quốc",
+      "categoryId": "8cc1ca2e-105e-462f-9cfc-da58d5228926",
+      "quantity": 5,
+      "remainingStock": 5,
+      "id": "f6a42f58-d4e6-4514-b328-be3c86e64066"
     }
   ],
   "categories": [
     {
       "id": "5acfef4b-0fdd-4fdd-b1a4-41ace07cd25a",
-      "categoryName": "Cổ tích - thần thoại"
+      "categoryName": "Cổ tích - thần thoại "
     },
     {
       "id": "08d98c20-7167-42a2-9b1b-b7604ab4829e",
@@ -174,6 +223,27 @@
       "status": "Đã trả",
       "bookId": "db9f4bb1-b924-43eb-a0ba-d30cdb08b95d",
       "returnDate": "2023-11-27T02:04:40.874Z"
+    },
+    {
+      "id": "f296cd8f-5dfb-41de-bed7-65ac10bc974b",
+      "userName": "trung trung",
+      "dueDate": "2023-11-28T17:00:00.000Z",
+      "status": "Đang mượn",
+      "bookId": "6547e8ea-3e54-459e-b9ef-f3f516a5515f"
+    },
+    {
+      "id": "3280ec47-6813-40fb-b7b6-ebcd6e57852a",
+      "userName": "lan anh",
+      "dueDate": "2023-11-28T17:00:00.000Z",
+      "status": "Đang mượn",
+      "bookId": "9cf57bab-0c18-4f08-865a-f06ad322da63"
+    },
+    {
+      "id": "d30f4ee1-db72-4f66-bcf1-10857c741839",
+      "userName": "chi chi 2",
+      "dueDate": "2023-11-29T17:00:00.000Z",
+      "status": "Đang mượn",
+      "bookId": "d9dc14a2-6cd3-467f-b3c8-6e62a24b5273"
     }
   ]
 }

@@ -5,7 +5,11 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Danh mục</mat-label>
-    <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{ standalone: true }" name="categoryId">
+    <mat-select
+      [(ngModel)]="selectedValue"
+      [ngModelOptions]="{ standalone: true }"
+      name="categoryId"
+    >
       <mat-option>All</mat-option>
       <mat-option *ngFor="let category of categoryDatas" [value]="category.id">
         {{ category.categoryName }}
@@ -43,18 +47,29 @@
       <button mat-raised-button type="submit" (click)="onEditBook(element.id)">
         Chỉnh sửa
       </button>
-      <button mat-raised-button *ngIf="element.remainingStock > 0" type="submit" (click)="onBorrow(element.id)">
+      <button
+        mat-raised-button
+        *ngIf="element.remainingStock > 0"
+        type="submit"
+        (click)="onBorrow(element.id)"
+      >
         Mượn
       </button>
-      <button mat-raised-button *ngIf="element.quantity === element.remainingStock" (click)="onDelete(element.id)"
-        type="submit">
+      <button
+        mat-raised-button
+        *ngIf="element.quantity === element.remainingStock"
+        (click)="onDelete(element.id)"
+        type="submit"
+      >
         Xóa
       </button>
-
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[10, 20, 25, 50]" aria-label="Select page of users"></mat-paginator>
+<mat-paginator
+  [pageSizeOptions]="[10, 20, 25, 50]"
+  aria-label="Select page of users"
+></mat-paginator>

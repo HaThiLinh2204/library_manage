@@ -13,9 +13,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { BookService } from 'src/app/service/book.service';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
-export interface IData extends ICategory{
+export interface IData extends ICategory {
   titleName: string;
 }
 @Component({
@@ -29,7 +34,6 @@ export interface IData extends ICategory{
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    
   ],
 })
 export class CategoryComponent implements OnInit {
@@ -45,13 +49,9 @@ export class CategoryComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.fetchCategoryList();
-   
-    
   }
   onDelete(id: string) {
-    console.log('id', id);
     this.bookService.getBooksByCategoryId(id).subscribe((books) => {
-      console.log(books.length);
       if (books.length === 0) {
         this.categoryService.deleteCategory(id).subscribe((res) => {
           alert('xóa thanh cong');
@@ -65,51 +65,44 @@ export class CategoryComponent implements OnInit {
 
   onCreate(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: { categoryName: '', id: '',titleName:'Thêm mới' },
+      data: { categoryName: '', id: '', titleName: 'Thêm mới' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-    if(result){
-      console.log(result)
-      ///  console.log(typeof(result));
-      this.category = { id: uuidv4(), categoryName: result };
-      this.categoryService.createCategory(this.category).subscribe((res) => {
-        console.log('them danh muc', this.category);
-        this.fetchCategoryList();
-      });
-    }
-      
-        
-        
+      if (result) {
+        this.category = { id: uuidv4(), categoryName: result };
+        this.categoryService.createCategory(this.category).subscribe((res) => {
+          this.fetchCategoryList();
+        });
       }
-    );
+    });
   }
 
-
   onEditCategory(id: string) {
-    console.log('id', id);
     this.categoryService.getCategoryById(id).subscribe((res) => {
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-        data: { categoryName: res.categoryName, id: res.id, titleName:'Chỉnh sửa' },
+        data: {
+          categoryName: res.categoryName,
+          id: res.id,
+          titleName: 'Chỉnh sửa',
+        },
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        if(result){
-          console.log(result);
+        if (result) {
           this.category = { id: id, categoryName: result };
-          this.categoryService.updateCategory(id, this.category).subscribe(() => {
-            console.log('cập nhật danh muc', this.category);
-            this.fetchCategoryList();
-          });
+          this.categoryService
+            .updateCategory(id, this.category)
+            .subscribe(() => {
+              this.fetchCategoryList();
+            });
         }
-       
       });
     });
   }
-  
+
   fetchCategoryList(): void {
     this.categoryService.getCategories().subscribe((response) => {
-      console.log('response received');
       this.categoryDatas = response;
       this.dataSource.data = this.categoryDatas;
     });
@@ -128,26 +121,22 @@ export class CategoryComponent implements OnInit {
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 })
 export class DialogOverviewExampleDialog implements OnInit {
- 
-  categoryName!:FormControl;
+  categoryName!: FormControl;
   title!: string;
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: IData
-  ) {} 
+  ) {}
   ngOnInit(): void {
     this.title = this.data.titleName;
-  console.log(this.data)
-    this.categoryName =  new FormControl('', [Validators.required])
-    this.categoryName.setValue(this.data.categoryName)
-    console.log(this.title)
+    this.categoryName = new FormControl('', [Validators.required]);
+    this.categoryName.setValue(this.data.categoryName);
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
-  
 }

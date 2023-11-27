@@ -1,6 +1,5 @@
 <div mat-dialog-content>
   <p>{{ title }}</p>
-
   <mat-form-field>
     <mat-label>Danh mục</mat-label>
     <input matInput type="text" [formControl]="categoryName" />
@@ -9,12 +8,7 @@
 <div mat-dialog-actions>
   <button mat-raised-button [mat-dialog-close]="false">Thoát</button>
 
-  <button
-    mat-raised-button
-    [disabled]="!categoryName.valid"
-    [mat-dialog-close]="categoryName.value"
-    cdkFocusInitial
-  >
+  <button mat-raised-button [disabled]="!categoryName.valid" [mat-dialog-close]="categoryName.value" cdkFocusInitial>
     Lưu
   </button>
 </div>

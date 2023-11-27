@@ -56,11 +56,10 @@ export class UpdatedBookComponent implements OnInit {
     private bookService: BookService,
     private categoryService: CategoryService,
     private router: Router
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((res) => {
       this.categoryDatas = res;
-      console.log(this.categoryDatas);
     });
     this.bookForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -69,7 +68,6 @@ export class UpdatedBookComponent implements OnInit {
       remainingStock: [0, Validators.required],
     });
     this.currentUrl = this.router.url;
-    console.log(typeof this.router.url);
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
@@ -86,18 +84,13 @@ export class UpdatedBookComponent implements OnInit {
     } else {
       this.router.navigate(['/new-book']);
       this.titleName = 'Thêm mới sách';
-      console.log('Không có ID sách được cung cấp.');
     }
   }
   onUpdate() {
-   // console.log(this.bookForm.value);
-
     if (this.bookForm.valid) {
       console.log(typeof this.router.url);
 
       if (this.router.url === '/new-book') {
-        
-        console.log(this.titleName);
         this.bookForm.value.remainingStock = this.bookForm.value.quantity;
 
         this.newBook.id = uuidv4();
@@ -105,9 +98,8 @@ export class UpdatedBookComponent implements OnInit {
         this.newBook.name = this.bookForm.value.name;
         this.newBook.quantity = this.bookForm.value.quantity;
         this.newBook.remainingStock = this.bookForm.value.remainingStock;
-        
+
         this.bookService.createbook(this.newBook).subscribe((res) => {
-          console.log(res);
           alert('thanh cong');
         });
         this.bookForm = this.formBuilder.group({
@@ -117,7 +109,6 @@ export class UpdatedBookComponent implements OnInit {
           remainingStock: [0, Validators.required],
         });
       } else {
-        
         const updatedBook = this.bookForm.value;
         updatedBook.remainingStock = this.bookForm.value.quantity;
         this.bookService.updateBook(this.bookId, updatedBook).subscribe(() => {

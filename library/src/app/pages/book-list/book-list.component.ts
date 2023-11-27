@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { filter, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { CategoryService } from 'src/app/service/category.service';
 import { ICategory } from 'src/app/model/category.model';
 import { Router } from '@angular/router';
@@ -33,7 +33,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { IRental, IRentalList } from 'src/app/model/rental.model';
+import { IRentalList } from 'src/app/model/rental.model';
 import { MatNativeDateModule } from '@angular/material/core';
 import { v4 as uuidv4 } from 'uuid';
 import { RentalService } from 'src/app/service/rental.service';
@@ -99,16 +99,12 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     this.keyName = this.searchForm.get('name')?.value;
-
-    console.log('Input value', this.keyName);
     this.newBookDatas = []; // Đặt lại mảng mới khi submit
     this.searchName(this.keyName, this.selectedValue, this.mergedObjects);
     this.dataSource.data = this.newBookDatas;
   }
   onDelete(id: string) {
-    console.log('id', id);
     this.bookService.deleteBook(id).subscribe((res) => {
-      console.log('done');
       this.fetchBookList();
     });
   }
@@ -120,9 +116,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
     this.newBookDatas.forEach((obj) => {
       mapObj2[obj['id']] = obj;
     });
-    //console.log(mapObj2[id]);
     const { categoryName, ...bookBorrow } = mapObj2[id];
-    //console.log(bookBorrow);
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       data: {
         id: uuidv4(),
@@ -136,7 +130,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         const { name, categoryName, ...result1 } = result;
         this.rentalService.createRental(result1).subscribe((res) => {
           alert('Mượn thành công');
@@ -145,7 +138,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
             this.fetchBookList();
           });
         });
-        console.log(result1);
       }
     });
   }
@@ -154,7 +146,6 @@ export class BookListComponent implements OnInit, AfterViewInit {
       bookDatas: this.bookService.getBooks(),
       categoryDatas: this.categoryService.getCategories(),
     }).subscribe((response) => {
-      console.log('response received');
       this.categoryDatas = response.categoryDatas;
       this.dataBookCategory = [response.bookDatas, response.categoryDatas];
       this.mergedObjects = this.mergeArraysByCategory(
@@ -256,7 +247,6 @@ export class DialogOverviewExampleDialog implements OnInit {
       ]),
       userName: new FormControl(this.data.userName, [Validators.required]),
       dueDate: new FormControl(this.data.dueDate, [Validators.required]),
-     // returnDate: new FormControl(this.data.returnDate, [Validators.required]),
       status: new FormControl(this.data.status, [Validators.required]),
       bookId: new FormControl(this.data.bookId, [Validators.required]),
     });

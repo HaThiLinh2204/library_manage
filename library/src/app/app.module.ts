@@ -7,14 +7,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { RouterModule } from '@angular/router';
 import { BookListComponent } from './pages/book-list/book-list.component';
 
-
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { myGuardGuard } from './auth-service/my-guard.guard';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CategoryComponent} from './pages/category/category.component';
+import { CategoryComponent } from './pages/category/category.component';
 import { UpdatedBookComponent } from './pages/updated-book/updated-book.component';
 import { NavigationBarComponent } from './pages/navigation-bar/navigation-bar.component';
 import { RentalListComponent } from './pages/rental-list/rental-list.component';
@@ -31,7 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    MatDatepickerModule, 
+    MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
     RouterModule.forRoot([
@@ -61,7 +60,7 @@ import { MatButtonModule } from '@angular/material/button';
         path: 'rental-list',
         component: RentalListComponent,
         canActivate: [myGuardGuard],
-      }
+      },
     ]),
   ],
   providers: [],

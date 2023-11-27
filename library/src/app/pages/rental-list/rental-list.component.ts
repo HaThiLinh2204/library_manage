@@ -94,13 +94,10 @@ export class RentalListComponent implements OnInit, AfterViewInit {
   onLend(id: string) {
     this.rentalService.getRentalById(id).subscribe((res) => {
       this.newRental = res;
-      console.log(this.newRental);
       this.newRental.status = 'Đã trả';
       this.newRental.returnDate = this.currentDate;
-      console.log(this.newRental.bookId);
       this.rentalService.updateRental(id, this.newRental).subscribe(() => {
         this.updateBookList(this.newRental.bookId);
-        console.log('tra thanh cong');
         this.fetchRentalList();
       });
     });
@@ -110,7 +107,6 @@ export class RentalListComponent implements OnInit, AfterViewInit {
       this.newBook = res;
       this.newBook.remainingStock = this.newBook.remainingStock + 1;
       this.bookService.updateBook(id, this.newBook).subscribe(() => {
-        console.log('cap nhat so luong sach thanh cong');
         this.fetchRentalList();
       });
     });
@@ -121,23 +117,18 @@ export class RentalListComponent implements OnInit, AfterViewInit {
       categoryDatas: this.categoryService.getCategories(),
       rentalDatas: this.rentalService.getRentalList(),
     }).subscribe((response) => {
-      console.log('thanh cong');
       this.categoryDatas = response.categoryDatas;
       this.dataBookCategoryRental = [
         response.bookDatas,
         response.categoryDatas,
         response.rentalDatas,
       ];
-
-      //console.log(this.dataBookCategoryRental)
       this.bookList = this.mergeArraysByCategory(
         this.dataBookCategoryRental[0],
         this.dataBookCategoryRental[1],
         'categoryId',
         'id'
       );
-
-     // console.log(this.bookList);
       this.rentalList = this.mergeArraysByCategory(
         this.dataBookCategoryRental[2],
         this.bookList,
@@ -146,38 +137,35 @@ export class RentalListComponent implements OnInit, AfterViewInit {
         'name',
         'categoryId'
       );
-      console.log(this.rentalList)
-      // this.dataSource.data = this.rentalList;
+
       this.searchNameOrUserName(
         this.keyName,
         this.selectedValue,
         this.rentalList
       );
       this.dataSource.data = this.newData;
-      // console.log('rental', this.rentalList);
     });
   }
   searchNameOrUserName(name: string, select: string, list: any[]) {
     this.newData = list.filter((rental) => {
+      const result = select
+        ? (this.normalizeString(rental.name).includes(
+            this.normalizeString(name)
+          ) ||
+            this.normalizeString(rental.userName).includes(
+              this.normalizeString(name)
+            )) &&
+          rental.categoryId == select
+        : this.normalizeString(rental.name).includes(
+            this.normalizeString(name)
+          ) ||
+          this.normalizeString(rental.userName).includes(
+            this.normalizeString(name)
+          );
 
-      const result = select?
-      ((this.normalizeString(rental.name).includes(
-        this.normalizeString(name)
-      ) ||
-        this.normalizeString(rental.userName).includes(
-          this.normalizeString(name)
-        )) &&
-      rental.categoryId == select):
-      (this.normalizeString(rental.name).includes(
-        this.normalizeString(name)
-      ) ||
-        this.normalizeString(rental.userName).includes(
-          this.normalizeString(name)
-        ));
-
-          if(result){
-            return rental;
-          }
+      if (result) {
+        return rental;
+      }
     });
   }
   removeDiacritics(keyword: string) {
@@ -213,7 +201,6 @@ export class RentalListComponent implements OnInit, AfterViewInit {
 
           categoryName: obj2.categoryName,
         };
-        // console.log('hello',mergedObject)
         if (field3 !== undefined && obj2[field3] !== undefined) {
           mergedObject[field3] = obj2[field3];
         }
