@@ -12,7 +12,7 @@
       "name": "Learning Vue.js 2",
       "categoryId": "9f97a359-3761-4812-9389-2c6bd72d4028",
       "quantity": 12,
-      "remainingStock": 11
+      "remainingStock": 10
     },
     {
       "name": "Giải Thuật Và Lập Trình",
@@ -135,7 +135,6 @@
       "status": "Đã trả",
       "bookId": "db9f4bb1-b924-43eb-a0ba-d30cdb08b95d"
     },
-    
     {
       "id": "7264d51c-7897-4eab-aa00-a064be1cb2e9",
       "userName": "chi chi",
@@ -159,6 +158,22 @@
       "returnDate": null,
       "status": "Đang mượn",
       "bookId": "a8dd0f98-9832-4d77-a755-0c2a32cd4f8d"
+    },
+    {
+      "id": "4da1b768-cd67-43d9-8d2b-0d051a400934",
+      "userName": "gghg",
+      "dueDate": "2023-11-29T17:00:00.000Z",
+      "returnDate": null,
+      "status": "Đang mượn",
+      "bookId": "c98168f9-6e14-4516-bb12-a00e3e5c22ba"
+    },
+    {
+      "id": "e55dbe58-5b88-4775-8280-556adbf8c74f",
+      "userName": "Hà Linh 2222",
+      "dueDate": "2023-11-28T17:00:00.000Z",
+      "status": "Đã trả",
+      "bookId": "db9f4bb1-b924-43eb-a0ba-d30cdb08b95d",
+      "returnDate": "2023-11-27T02:04:40.874Z"
     }
   ]
 }
